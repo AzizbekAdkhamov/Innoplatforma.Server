@@ -12,6 +12,7 @@ public class Application : Auditable<long>
 
     public string Title { get; set; }
     public string Description { get; set; }
+    public string MotivationLetter { get; set; }
     public Status Status { get; set; }
     public ApplicationAsset Asset { get; set; }
 
