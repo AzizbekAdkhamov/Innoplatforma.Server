@@ -1,12 +1,11 @@
-﻿namespace Innoplatforma.Server.Service.Extensions
-{
-    public class InnoPlatformException : Exception
-    {
-        public int StatusCode { get; set; }
+﻿namespace Innoplatforma.Server.Service.Exceptions;
 
-        public InnoPlatformException(int code, string message) : base(message)
-        {
-            StatusCode = code;
-        }
+public class InnoplatformException : Exception
+{
+    public int StatusCode { get; set; }
+    public InnoplatformException(int code, string message) : 
+        base(message)
+    {
+        StatusCode = code;
     }
 }
