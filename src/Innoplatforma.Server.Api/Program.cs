@@ -1,48 +1,42 @@
-
-<<<<<<< Updated upstream
+using Innoplatforma.Server.Service.Mappers;
 namespace Innoplatforma.Server.Api
-=======
-using Innoplatforma.Server.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Innoplatforma.Server.Api.Extentions;
+using Innoplatforma.Server.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatforma.Server.Api;
 
 public class Program
->>>>>>> Stashed changes
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+        var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
+            builder.Services.AddDbContext<InnoPlatformDbContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-            app.MapControllers();
+        builder.Services.AddControllers();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
-<<<<<<< Updated upstream
-            app.Run();
-=======
+        builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+
+        var app = builder.Build();
+
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+      
         builder.Services.AddAutoMapper(typeof(MappingProfile));
 
         builder.Services.AddCustomService();
@@ -54,7 +48,12 @@ public class Program
         {
             app.UseSwagger();
             app.UseSwaggerUI();
->>>>>>> Stashed changes
         }
+        app.UseAuthorization();
+
+
+        app.MapControllers();
+
+        app.Run();
     }
 }

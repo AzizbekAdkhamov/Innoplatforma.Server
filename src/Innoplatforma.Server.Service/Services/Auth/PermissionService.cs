@@ -1,16 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Innoplatforma.Server.Domain.Entities.Auth;
-<<<<<<< Updated upstream
 using Innoplatforma.Server.Service.Interfaces.Auth;
 using Innoplatforma.Server.Data.IRepositories.Auth;
-=======
 using Innoplatforma.Server.Service.Configurations;
-using Innoplatforma.Server.Service.Interfaces.Auth;
-using Innoplatforma.Server.Data.IRepositories.Auth;
 using Innoplatforma.Server.Service.Commons.Extentions;
->>>>>>> Stashed changes
 using Innoplatforma.Server.Service.DTOs.Auth.Permissions;
+using Innoplatforma.Server.Service.Exceptions;
 
 namespace Innoplatforma.Server.Service.Services.Auth;
 
@@ -33,7 +29,7 @@ public class PermissionService : IPermissionService
                 .FirstOrDefaultAsync();
 
         if (permission is not null)
-            throw new Exception(409, "Permission is already exist.");
+            throw new InnoplatformException(409, "Permission is already exist.");
 
         var mappedPermission = _mapper.Map<Permission>(dto);
         mappedPermission.CreatedAt = DateTime.UtcNow;
@@ -45,14 +41,11 @@ public class PermissionService : IPermissionService
 
     public async Task<PermissionForResultDto> ModifyAsync(int id, PermissionForUpdateDto dto)
     {
-        var permission = await _permissionRepository.SelectAll()
-                .Where(p => p.Id == id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
+        var permission = await _permissionRepository.SelectByIdAsync(id);
 
         if (permission is null)
-            throw new Exception(404, "Permission is not found");
-
+            throw new InnoplatformException(404, "Permission is not found");
+            
         var mappedPermission = _mapper.Map(dto, permission);
         mappedPermission.UpdatedAt = DateTime.UtcNow;
 
@@ -63,14 +56,11 @@ public class PermissionService : IPermissionService
 
     public async Task<bool> RemoveAsync(int id)
     {
-        var permission = await _permissionRepository.SelectAll()
-                .Where(p => p.Id == id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
+        var permission = await _permissionRepository.SelectByIdAsync(id);
 
         if (permission is null)
-            throw new Exception(404, "Permission is not found");
-
+            throw new InnoplatformException(404, "Permission is not found");
+            
         return await _permissionRepository.DeleteAsync(id);
     }
 
@@ -84,15 +74,12 @@ public class PermissionService : IPermissionService
         return _mapper.Map<IEnumerable<PermissionForResultDto>>(languages);
     }
 
-    public async Task<PermissionForResultDto> RetrieveByIdAsync(short id)
+    public async Task<PermissionForResultDto> RetrieveByIdAsync(int id)
     {
-        var permission = await _permissionRepository.SelectAll()
-                .Where(p => p.Id == id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
+        var permission = await _permissionRepository.SelectByIdAsync(id);
 
         if (permission is null)
-            throw new Exception(404, "Permission is not found");
+            throw new InnoplatformException(404, "Permission is not found");
 
         return _mapper.Map<PermissionForResultDto>(permission);
     }
