@@ -1,5 +1,13 @@
-﻿namespace Innoplatforma.Server.Data.Repositories.Auth;
+﻿using Innoplatforma.Server.Data.DbContexts;
+using Innoplatforma.Server.Data.IRepositories.Auth;
+using Innoplatforma.Server.Domain.Entities.Auth;
 
-public class PermissionRepository
+namespace Innoplatforma.Server.Data.Repositories.Auth;
+
+public class PermissionRepository : Repository<Permission, int>, IPermissionRepository
 {
+    public PermissionRepository(InnoPlatformDbContext dbContext) : 
+        base(dbContext)
+    {
+    }
 }
