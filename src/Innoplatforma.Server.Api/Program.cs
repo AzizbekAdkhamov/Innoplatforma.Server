@@ -1,5 +1,8 @@
 using Innoplatforma.Server.Service.Mappers;
 
+using Innoplatforma.Server.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace Innoplatforma.Server.Api;
 
 public class Program
@@ -8,7 +11,10 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+            // Add services to the container.
+            builder.Services.AddDbContext<InnoPlatformDbContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
