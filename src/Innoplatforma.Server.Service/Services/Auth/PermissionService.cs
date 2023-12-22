@@ -1,8 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Innoplatforma.Server.Domain.Entities.Auth;
+<<<<<<< Updated upstream
 using Innoplatforma.Server.Service.Interfaces.Auth;
 using Innoplatforma.Server.Data.IRepositories.Auth;
+=======
+using Innoplatforma.Server.Service.Configurations;
+using Innoplatforma.Server.Service.Interfaces.Auth;
+using Innoplatforma.Server.Data.IRepositories.Auth;
+using Innoplatforma.Server.Service.Commons.Extentions;
+>>>>>>> Stashed changes
 using Innoplatforma.Server.Service.DTOs.Auth.Permissions;
 
 namespace Innoplatforma.Server.Service.Services.Auth;

@@ -1,5 +1,15 @@
 
+<<<<<<< Updated upstream
 namespace Innoplatforma.Server.Api
+=======
+using Innoplatforma.Server.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+using Innoplatforma.Server.Api.Extentions;
+
+namespace Innoplatforma.Server.Api;
+
+public class Program
+>>>>>>> Stashed changes
 {
     public class Program
     {
@@ -30,7 +40,21 @@ namespace Innoplatforma.Server.Api
 
             app.MapControllers();
 
+<<<<<<< Updated upstream
             app.Run();
+=======
+        builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+        builder.Services.AddCustomService();
+
+        var app = builder.Build();
+
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+>>>>>>> Stashed changes
         }
     }
 }

@@ -11,4 +11,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+<<<<<<< Updated upstream
+=======
+  <ItemGroup>
+    <ProjectReference Include="..\Innoplatforma.Server.Data\Innoplatforma.Server.Data.csproj" />
+    <ProjectReference Include="..\Innoplatforma.Server.Service\Innoplatforma.Server.Service.csproj" />
+  </ItemGroup>
+
+>>>>>>> Stashed changes
 </Project>
