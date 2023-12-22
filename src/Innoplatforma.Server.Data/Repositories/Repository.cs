@@ -1,26 +1,21 @@
 ﻿using Innoplatforma.Server.Data.DbContexts;
 using Innoplatforma.Server.Data.IRepositories;
+using Innoplatforma.Server.Domain.Commons;
 using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatforma.Server.Data.Repositories;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : Auditable<TKey>
 {
-    protected readonly InnoPlatformaDbContext _dbContext;
+    protected readonly InnoPlatformDbContext _dbContext;
     protected readonly DbSet<TEntity> _dbSet;
 
-    public Repository(InnoPlatformaDbContext dbContext)
+    public Repository(InnoPlatformDbContext dbContext)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<TEntity>();
     }
-    public async Task<bool> DeleteAsync(long id)
-    {
-        var entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
-        _dbSet.Remove(entity);
 
-        return await _dbContext.SaveChangesAsync() > 0;
-    }
 
     public async Task<TEntity> InsertAsync(TEntity entity)
     {
@@ -31,16 +26,27 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return entry.Entity;
     }
 
-    public IQueryable<TEntity> SelectAll() => _dbSet;
 
-    public async Task<TEntity> SelectByIdAsync(long id)=>
-        await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
+    public async Task<bool> DeleteAsync(TKey id)
+    {
+        var entity = await _dbSet.FirstOrDefaultAsync(e => e.Id.Equals(id));
+        _dbSet.Remove(entity);
+
+        return await _dbContext.SaveChangesAsync() > 0;
+    }
+
+
+    public IQueryable<TEntity> SelectAll()
+        => _dbSet;
+
+    public async Task<TEntity> SelectByIdAsync(TKey id)
+        => await _dbSet.FirstOrDefaultAsync(e => e.Id.Equals(id));
 
     public async Task<TEntity> UpdateAsync(TEntity entity)
     {
-        var @object =  _dbSet.Update(entity);
+        var entry = _dbContext.Update(entity);
         await _dbContext.SaveChangesAsync();
 
-        return @object.Entity;
+        return entry.Entity;
     }
 }

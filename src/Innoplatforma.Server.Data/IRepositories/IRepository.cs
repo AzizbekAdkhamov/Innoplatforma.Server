@@ -1,10 +1,12 @@
-﻿namespace Innoplatforma.Server.Data.IRepositories;
+﻿using Innoplatforma.Server.Domain.Commons;
 
-public interface IRepository<TEntity> where TEntity : class
+namespace Innoplatforma.Server.Data.IRepositories;
+
+public interface IRepository<TEntity, TKey> where TEntity : Auditable<TKey>
 {
-    Task<bool> DeleteAsync(long id);
+    Task<bool> DeleteAsync(TKey id);
     IQueryable<TEntity> SelectAll();
-    Task<TEntity> SelectByIdAsync(long id);
+    Task<TEntity> SelectByIdAsync(TKey id);
     Task<TEntity> InsertAsync(TEntity entity);
     Task<TEntity> UpdateAsync(TEntity entity);
 }

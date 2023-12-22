@@ -2,7 +2,7 @@
 
 namespace Innoplatforma.Server.Domain.Entities.Users;
 
-public class UserRole : Auditable<long>
+public class UserProfession : Auditable<long>
 {
     public int UserId { get; set; }
     public User User { get; set; }
