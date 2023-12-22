@@ -1,5 +1,7 @@
-﻿namespace Innoplatforma.Server.Data.IRepositories.Auth;
+﻿using Innoplatforma.Server.Domain.Entities.Auth;
 
-public interface IPermissionRepository
+namespace Innoplatforma.Server.Data.IRepositories.Auth;
+
+public interface IPermissionRepository : IRepository<Permission, int>
 {
 }
