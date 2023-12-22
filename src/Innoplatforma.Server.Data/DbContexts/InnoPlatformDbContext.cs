@@ -14,6 +14,7 @@ public class InnoPlatformDbContext : DbContext
         : base(options)
     {
     }
+    DbSet<Investment> Investments { get; set; }
     DbSet<Application> Applications { get; set; }
     DbSet<ApplicationAsset> ApplicationAssets { get; set; }
 
