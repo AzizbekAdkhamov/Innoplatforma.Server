@@ -1,11 +1,10 @@
-﻿namespace Innoplatforma.Server.Service.Interfaces.Auth;
+﻿using Innoplatforma.Server.Service.Configurations;
+using Innoplatforma.Server.Service.DTOs.Auth.Permissions;
+
+namespace Innoplatforma.Server.Service.Interfaces.Auth;
 
 public interface IPermissionService
 {
-<<<<<<< Updated upstream
-    
-}
-=======
     Task<bool> RemoveAsync(int id);
     Task<PermissionForResultDto> RetrieveByIdAsync(int id);
     Task<PermissionForResultDto> CreateAsync(PermissionForCreationDto dto);
@@ -13,4 +12,3 @@ public interface IPermissionService
 
     Task<IEnumerable<PermissionForResultDto>> RetrieveAllAsync(PaginationParams @params);
 }
->>>>>>> Stashed changes
