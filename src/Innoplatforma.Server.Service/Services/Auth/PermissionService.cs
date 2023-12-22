@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Innoplatforma.Server.Service.Exceptions;
 using Innoplatforma.Server.Domain.Entities.Auth;
-using Innoplatforma.Server.Service.Configurations;
+using Innoplatforma.Server.Service.Interfaces.Auth;
 using Innoplatforma.Server.Data.IRepositories.Auth;
+using Innoplatforma.Server.Service.Configurations;
 using Innoplatforma.Server.Service.Commons.Extentions;
 using Innoplatforma.Server.Service.DTOs.Auth.Permissions;
-using Innoplatforma.Server.Service.Interfaces.Auth;
+using Innoplatforma.Server.Service.Exceptions;
 
 namespace Innoplatforma.Server.Service.Services.Auth;
 
@@ -45,7 +45,7 @@ public class PermissionService : IPermissionService
 
         if (permission is null)
             throw new InnoplatformException(404, "Permission is not found");
-
+            
         var mappedPermission = _mapper.Map(dto, permission);
         mappedPermission.UpdatedAt = DateTime.UtcNow;
 
@@ -60,7 +60,7 @@ public class PermissionService : IPermissionService
 
         if (permission is null)
             throw new InnoplatformException(404, "Permission is not found");
-
+            
         return await _permissionRepository.DeleteAsync(id);
     }
 
