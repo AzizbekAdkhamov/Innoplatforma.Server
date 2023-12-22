@@ -1,9 +1,7 @@
 using Innoplatforma.Server.Service.Mappers;
-namespace Innoplatforma.Server.Api
 using Microsoft.EntityFrameworkCore;
 using Innoplatforma.Server.Api.Extentions;
 using Innoplatforma.Server.Data.DbContexts;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 
@@ -26,6 +24,8 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+        builder.Services.AddCustomService();
 
         builder.Services.AddRateLimiter(rateLimiterOptions =>
         {
@@ -56,20 +56,6 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-      
-        builder.Services.AddAutoMapper(typeof(MappingProfile));
-
-        builder.Services.AddCustomService();
-
-        var app = builder.Build();
-
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-        app.UseAuthorization();
 
         app.UseRateLimiter();
 
