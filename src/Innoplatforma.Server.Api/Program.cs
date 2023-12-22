@@ -2,6 +2,8 @@ using Innoplatforma.Server.Service.Mappers;
 
 using Innoplatforma.Server.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 namespace Innoplatforma.Server.Api;
 
@@ -23,6 +25,24 @@ public class Program
 
         builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+        builder.Services.AddRateLimiter(rateLimiterOptions =>
+        {
+            rateLimiterOptions.AddFixedWindowLimiter("fixed", options =>
+            {
+                options.Window = TimeSpan.FromSeconds(10);
+                options.PermitLimit = 5;
+                options.QueueLimit = 5;
+                options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+            });
+
+            rateLimiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            rateLimiterOptions.OnRejected = async (context, token) =>
+            {
+                context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+                await context.HttpContext.Response.WriteAsync(
+                    "Too many request. Please try again later.", cancellationToken:  token);
+            };
+        });
 
         var app = builder.Build();
 
@@ -37,6 +57,7 @@ public class Program
 
         app.UseAuthorization();
 
+        app.UseRateLimiter();
 
         app.MapControllers();
 
