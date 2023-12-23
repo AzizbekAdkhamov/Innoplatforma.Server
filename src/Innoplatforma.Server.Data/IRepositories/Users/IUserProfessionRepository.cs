@@ -2,7 +2,7 @@
 
 namespace Innoplatforma.Server.Data.IRepositories.Users
 {
-    public interface IUserProfessionRepository : IRepository<User, long>
+    public interface IUserProfessionRepository : IRepository<UserProfession, long>
     {
     }
 }

@@ -10,6 +10,8 @@ using Innoplatforma.Server.Domain.Entities.References;
 using Innoplatforma.Server.Service.Dtos.Auth.Roles;
 using Innoplatforma.Server.Service.DTOs.References.Locations;
 using Innoplatforma.Server.Service.DTOs.Sections;
+using Innoplatforma.Server.Domain.Entities.Users;
+using Innoplatforma.Server.Service.DTOs.Users;
 
 namespace Innoplatforma.Server.Service.Mappers;
 
@@ -46,5 +48,11 @@ public class MappingProfile : Profile
         CreateMap<Link, LinkForCreationDto>().ReverseMap();
         CreateMap<Link, LinkForUpdateDto>().ReverseMap();
         CreateMap<Link, LinkForResultDto>().ReverseMap();
+
+        // User
+        CreateMap<User, UserForCreationDto>().ReverseMap();
+        CreateMap<User, UserForResultDto>().ReverseMap();
+        CreateMap<User, UserForUpdateDto>().ReverseMap();
+
     }
 }

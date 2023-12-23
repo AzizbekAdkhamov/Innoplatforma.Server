@@ -5,3 +5,4 @@ namespace Innoplatforma.Server.Data.IRepositories.Users;
 public interface IUserRepository : IRepository<User, long>
 {
 }
+
