@@ -4,5 +4,5 @@ namespace Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDetailAsse
 
 public class OrganizationDetailAssetForCreationDto
 {
-    public IFormFile formFile {  get; set; }
+    public IFormFile FormFile {  get; set; }
 }
