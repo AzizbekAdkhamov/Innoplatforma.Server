@@ -17,6 +17,7 @@ using Innoplatforma.Server.Data.Repositories.References;
 using Innoplatforma.Server.Data.Repositories.Sections;
 using Innoplatforma.Server.Data.Repositories.Users;
 using Innoplatforma.Server.Service.Interfaces.Accounts;
+using Innoplatforma.Server.Service.Interfaces.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Service.Interfaces.Auth;
 using Innoplatforma.Server.Service.Interfaces.Commons;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Links;
@@ -25,6 +26,7 @@ using Innoplatforma.Server.Service.Interfaces.References;
 using Innoplatforma.Server.Service.Interfaces.Sections;
 using Innoplatforma.Server.Service.Interfaces.Users;
 using Innoplatforma.Server.Service.Services.Accounts;
+using Innoplatforma.Server.Service.Services.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Service.Services.Auth;
 using Innoplatforma.Server.Service.Services.Commons;
 using Innoplatforma.Server.Service.Services.Organizations;
@@ -78,6 +80,10 @@ public static class ServiceExtentions
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IEmailService, EmailService>();
+
+        // OrganizationDetailAssets
+        services.AddScoped<IOrganizationDetailAssetRepository, OrganizationDetailAssetRepository>();
+        services.AddScoped<IOrganizationDetailAssetService, OrganizationDetailAssetService>();
 
     }
 
