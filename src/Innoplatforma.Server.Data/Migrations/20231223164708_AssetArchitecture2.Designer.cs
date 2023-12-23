@@ -3,6 +3,7 @@ using System;
 using Innoplatforma.Server.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Innoplatforma.Server.Data.Migrations
 {
     [DbContext(typeof(InnoPlatformDbContext))]
-    partial class InnoPlatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231223164708_AssetArchitecture2")]
+    partial class AssetArchitecture2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,6 +203,9 @@ namespace Innoplatforma.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long?>("PersonalDataId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("Size")
                         .HasColumnType("bigint");
 
@@ -211,6 +217,8 @@ namespace Innoplatforma.Server.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonalDataId");
 
                     b.ToTable("PersonalDataAssets");
                 });
@@ -482,12 +490,6 @@ namespace Innoplatforma.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("PassportAssetFrontId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PassportAssetsBackId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("PassportEndDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -501,12 +503,6 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<long>("PersonalDataAssetBacktIdId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PersonalDataAssetFrontIdId")
-                        .HasColumnType("bigint");
 
                     b.Property<long>("Size")
                         .HasColumnType("bigint");
@@ -525,10 +521,6 @@ namespace Innoplatforma.Server.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonalDataAssetBacktIdId");
-
-                    b.HasIndex("PersonalDataAssetFrontIdId");
 
                     b.HasIndex("UserId");
 
@@ -652,6 +644,13 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Assets.PersonalDataAssets", b =>
+                {
+                    b.HasOne("Innoplatforma.Server.Domain.Entities.Users.PersonalData", null)
+                        .WithMany("Assets")
+                        .HasForeignKey("PersonalDataId");
+                });
+
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Auth.RolePermession", b =>
                 {
                     b.HasOne("Innoplatforma.Server.Domain.Entities.Auth.Permission", "Premession")
@@ -722,27 +721,11 @@ namespace Innoplatforma.Server.Data.Migrations
 
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Users.PersonalData", b =>
                 {
-                    b.HasOne("Innoplatforma.Server.Domain.Entities.Assets.PersonalDataAssets", "PersonalDataAssetBacktId")
-                        .WithMany()
-                        .HasForeignKey("PersonalDataAssetBacktIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Innoplatforma.Server.Domain.Entities.Assets.PersonalDataAssets", "PersonalDataAssetFrontId")
-                        .WithMany()
-                        .HasForeignKey("PersonalDataAssetFrontIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Innoplatforma.Server.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("PersonalDataAssetBacktId");
-
-                    b.Navigation("PersonalDataAssetFrontId");
 
                     b.Navigation("User");
                 });
@@ -777,6 +760,11 @@ namespace Innoplatforma.Server.Data.Migrations
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Sections.Section", b =>
                 {
                     b.Navigation("Organizations");
+                });
+
+            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Users.PersonalData", b =>
+                {
+                    b.Navigation("Assets");
                 });
 
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Users.User", b =>

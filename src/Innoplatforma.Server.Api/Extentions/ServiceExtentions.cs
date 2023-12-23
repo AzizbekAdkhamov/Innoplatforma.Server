@@ -26,6 +26,7 @@ using Innoplatforma.Server.Service.Interfaces.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Service.Interfaces.References;
 using Innoplatforma.Server.Service.Interfaces.Sections;
 using Innoplatforma.Server.Service.Interfaces.Users;
+using Innoplatforma.Server.Service.Interfaces.Users.PersonalDatas;
 using Innoplatforma.Server.Service.Services.Accounts;
 using Innoplatforma.Server.Service.Services.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Service.Services.Auth;
@@ -36,6 +37,7 @@ using Innoplatforma.Server.Service.Services.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Service.Services.References;
 using Innoplatforma.Server.Service.Services.Sections;
 using Innoplatforma.Server.Service.Services.Users;
+using Innoplatforma.Server.Service.Services.Users.PersonalDatas;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -77,20 +79,26 @@ public static class ServiceExtentions
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ISmsService, SmsService>();
 
-        // Accounts
-        services.AddScoped<IAuthService, AuthService>();
-
+        // Accounts 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IEmailService, EmailService>();
-        
-       // Role
+
+        // Login
+        services.AddScoped<IAuthService, AuthService>();
+
+        // Role
         services.AddScoped<IRoleRepository, RoleRepository>();
-        services.AddScoped<IRoleService, RoleService>();    
+        services.AddScoped<IRoleService, RoleService>();
+
+        // PersonalData
+        services.AddScoped<IPersonalDataRepository, PersonalDataRepository>();
+        services.AddScoped<IPersonalDataService, PersonalDataService>();
+        
 
         // OrganizationDetailAssets
         services.AddScoped<IOrganizationDetailAssetRepository, OrganizationDetailAssetRepository>();
         services.AddScoped<IOrganizationDetailAssetService, OrganizationDetailAssetService>();
-
+      
         // Organization Detail
         services.AddScoped<IOrganizationDetailRepository, OrganizationDetailRepository>();
         services.AddScoped<IOrganizationDetailService, OrganizationDetailService>();
