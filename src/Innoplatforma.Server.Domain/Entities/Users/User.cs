@@ -16,9 +16,9 @@ public class User : Auditable<long>
     public bool IsVerified { get; set; }
     public short RoleId { get; set; }
     public Role Role { get; set; }
+    public string Salt { get; set; }
 
-    public long PersonakDataId {  get; set; }
-    public PersonalData PersonalDatas { get; set; }
+    public long? PersonalDataId {  get; set; }
 
     public List<Application> Applications { get; set; }
 }

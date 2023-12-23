@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Innoplatforma.Server.Data\Innoplatforma.Server.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\Organizations\Locations\" />
+  </ItemGroup>
+
 </Project>
