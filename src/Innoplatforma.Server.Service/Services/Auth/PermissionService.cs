@@ -66,12 +66,12 @@ public class PermissionService : IPermissionService
 
     public async Task<IEnumerable<PermissionForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var languages = await _permissionRepository.SelectAll()
+        var permission = await _permissionRepository.SelectAll()
             .AsNoTracking()
             .ToPagedList<Permission, int>(@params)
             .ToListAsync();
 
-        return _mapper.Map<IEnumerable<PermissionForResultDto>>(languages);
+        return _mapper.Map<IEnumerable<PermissionForResultDto>>(permission);
     }
 
     public async Task<PermissionForResultDto> RetrieveByIdAsync(int id)
