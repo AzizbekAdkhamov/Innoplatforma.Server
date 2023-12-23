@@ -17,7 +17,5 @@ public class User : Auditable<long>
     public Role Role { get; set; }
     public string Salt { get; set; }
 
-    public long? PersonalDataId {  get; set; }
-
     public List<Application> Applications { get; set; }
 }

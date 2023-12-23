@@ -12,16 +12,19 @@ using Innoplatforma.Server.Data.Repositories.Organizations.Links;
 using Innoplatforma.Server.Data.Repositories.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Data.Repositories.References;
 using Innoplatforma.Server.Data.Repositories.Sections;
+using Innoplatforma.Server.Service.Interfaces.Accounts;
 using Innoplatforma.Server.Service.Interfaces.Auth;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Links;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Organization;
 using Innoplatforma.Server.Service.Interfaces.References;
 using Innoplatforma.Server.Service.Interfaces.Sections;
+using Innoplatforma.Server.Service.Services.Accounts;
 using Innoplatforma.Server.Service.Services.Auth;
 using Innoplatforma.Server.Service.Services.Organizations;
 using Innoplatforma.Server.Service.Services.Organizations.Links;
 using Innoplatforma.Server.Service.Services.References;
 using Innoplatforma.Server.Service.Services.Sections;
+
 
 namespace Innoplatforma.Server.Api.Extentions;
 
@@ -54,5 +57,9 @@ public static class ServiceExtentions
         // Locations
         services.AddScoped<ILocationRepository, LocationRepository>();
         services.AddScoped<IlocationService, LocationService>();
+
+        // Accounts
+        services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IAccountService, AccountService>();
     }
 }
