@@ -1,16 +1,12 @@
 ﻿using AutoMapper;
-using Innoplatforma.Server.Data.IRepositories.Auth;
-using Innoplatforma.Server.Data.Repositories.Auth;
+using Microsoft.EntityFrameworkCore;
+using Innoplatforma.Server.Service.Exceptions;
 using Innoplatforma.Server.Domain.Entities.Auth;
-using Innoplatforma.Server.Domain.Entities.Users;
-using Innoplatforma.Server.Service.Commons.Extentions;
 using Innoplatforma.Server.Service.Configurations;
 using Innoplatforma.Server.Service.Dtos.Auth.Roles;
-using Innoplatforma.Server.Service.DTOs.Auth.Permissions;
-using Innoplatforma.Server.Service.Exceptions;
 using Innoplatforma.Server.Service.Interfaces.Auth;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Innoplatforma.Server.Data.IRepositories.Auth;
+using Innoplatforma.Server.Service.Commons.Extentions;
 
 namespace Innoplatforma.Server.Service.Services.Auth;
 
@@ -32,7 +28,7 @@ public class RoleService : IRoleService
             .Where(r => r.Name.ToLower() == dto.Name.ToLower())
             .AsNoTracking()
             .FirstOrDefaultAsync();
-        if(role is not null)
+        if (role is not null)
             throw new InnoplatformException(409, "Role is already exist!");
         var mapRole = _mapper.Map<Role>(dto);
         mapRole.CreatedAt = DateTime.UtcNow;
@@ -58,10 +54,10 @@ public class RoleService : IRoleService
 
     public async Task<bool> RemoveAsync(short id)
     {
-        var permission = await _roleRepository.SelectByIdAsync(id);
+        var role = await _roleRepository.SelectByIdAsync(id);
 
-        if (permission is null)
-            throw new InnoplatformException(404, "Permission is not found");
+        if (role is null)
+            throw new InnoplatformException(404, "Role is not found");
 
         return await _roleRepository.DeleteAsync(id);
     }
