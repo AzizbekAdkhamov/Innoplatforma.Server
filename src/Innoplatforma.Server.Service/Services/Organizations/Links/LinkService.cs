@@ -57,7 +57,7 @@ public class LinkService : ILinkService
         .FirstOrDefaultAsync();
 
         if (organization is null)
-            throw new InnoplatformException(404, "Organization is not found");
+            throw new InnoplatformException(404, "Link is not found");
 
         var link = await _linkRepository.SelectByIdAsync(id);
 
