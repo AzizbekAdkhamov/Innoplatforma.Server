@@ -7,7 +7,8 @@ public static class FileUploadHelper
     public static async Task<string> UploadFile(string filePath, IFormFile formFile)
     {
         var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(formFile.FileName);
-        var rootPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, "Media", filePath, fileName);
+        var rootPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, "Media", filePath);
+        var assetsFolderPath = Path.Combine("wwwroot", "Media", filePath, fileName);
 
         if (!Directory.Exists(rootPath))
         {
@@ -23,6 +24,6 @@ public static class FileUploadHelper
             stream.Close();
         }
 
-        return rootPath;
+        return assetsFolderPath;
     }
 }
