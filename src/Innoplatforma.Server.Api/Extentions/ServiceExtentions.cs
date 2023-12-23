@@ -78,6 +78,10 @@ public static class ServiceExtentions
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IEmailService, EmailService>();
 
+        services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddScoped<IRoleService, RoleService>();    
+
+
     }
 
     public static void AddSwaggerService(this IServiceCollection services)
