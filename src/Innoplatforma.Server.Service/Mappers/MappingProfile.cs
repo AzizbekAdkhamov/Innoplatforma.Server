@@ -15,6 +15,7 @@ using Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDtos;
 using Innoplatforma.Server.Service.DTOs.Users.UserProffesions;
 using Innoplatforma.Server.Domain.Entities.Assets;
 using Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDetailAssets;
+using Innoplatforma.Server.Service.DTOs.Users.PersonalDatas;
 
 namespace Innoplatforma.Server.Service.Mappers;
 
@@ -72,5 +73,13 @@ public class MappingProfile : Profile
         CreateMap<OrganizationDetailAsset, OrganizationDetailAssetForCreationDto>().ReverseMap();
         CreateMap<OrganizationDetailAsset, OrganizationDetailAssetForResultDto>().ReverseMap();
         CreateMap<OrganizationDetailAsset, OrganizationDetailAssetForUpdateDto >().ReverseMap();
+
+        // PersonalDataForResultDto
+
+        CreateMap<PersonalData, PersonalDataForResultDto>().ReverseMap();
+        CreateMap<PersonalData, PersonalDataForCreationDto> ().ReverseMap();
+        CreateMap<PersonalData, PersonalDataForUpdateDto> ().ReverseMap();
+        CreateMap<PersonalDataForCreationDto, PersonalDataForResultDto> ().ReverseMap();
+
     }
 }

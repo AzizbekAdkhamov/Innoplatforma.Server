@@ -13,6 +13,10 @@ public class PersonalData : Asset
     public DateTime BirthDate { get; set; }
     public Status Status { get; set; }
 
-    public ICollection<PersonalDataAssets> Assets { get; set; }
+    public long PassportAssetFrontId { get; set; }
+    public PersonalDataAssets PersonalDataAssetFrontId { get; set; }
+
+    public long PassportAssetsBackId { get; set; }
+    public PersonalDataAssets PersonalDataAssetBacktId { get; set; }
 
 }

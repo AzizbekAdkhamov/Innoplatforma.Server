@@ -10,10 +10,10 @@ namespace Innoplatforma.Server.Service.Services.Commons;
 
 public class AuthService : IAuthService
 {
-    private readonly IConfiguration configuration;
+    private readonly IConfiguration _configuration;
     public AuthService(IConfiguration configuration)
     {
-        this.configuration = configuration.GetSection("Jwt");
+        _configuration = configuration.GetSection("Jwt");
     }
 
     public string GenerateToken(User user)
@@ -24,13 +24,13 @@ public class AuthService : IAuthService
             new Claim("Id", user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.FirstName+ " " + user.LastName),
             new Claim("PhoneNumber", user.Phone),
-            new Claim(ClaimTypes.Role, user.Role.ToString())
+            new Claim(ClaimTypes.Role, user.Role.Name)
         };
 
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["SecretKey"]));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecretKey"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-        var tokenDescriptor = new JwtSecurityToken(configuration["Issuer"], configuration["Audience"], claims,
-            expires: DateTime.Now.AddMinutes(double.Parse(configuration["Lifetime"])),
+        var tokenDescriptor = new JwtSecurityToken(_configuration["Issuer"], _configuration["Audience"], claims,
+            expires: DateTime.Now.AddMinutes(double.Parse(_configuration["Lifetime"])),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);

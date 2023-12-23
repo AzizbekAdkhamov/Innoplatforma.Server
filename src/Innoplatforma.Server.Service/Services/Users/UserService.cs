@@ -43,7 +43,6 @@ public class UserService : IUsersService
         return true;
     }
 
-
     public async Task<UserForResultDto> CreateAsync(UserForCreationDto dto)
     {
         var user = await _userRepository.SelectAll()
@@ -54,8 +53,10 @@ public class UserService : IUsersService
         if (user is not null)
             throw new InnoplatformException(409, "User is already exist.");
 
+        var hasherResult = PasswordHelper.Hash(dto.Password);
         var mappedUser = _mapper.Map<User>(dto);
-        mappedUser.CreatedAt = DateTime.UtcNow;
+        mappedUser.Salt = hasherResult.Salt.ToString();
+        mappedUser.Password = hasherResult.Hash;
 
         var createdUser = await _userRepository.InsertAsync(mappedUser);
 

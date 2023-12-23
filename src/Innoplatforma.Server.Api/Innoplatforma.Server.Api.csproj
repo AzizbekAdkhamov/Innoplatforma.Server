@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Media\PersonalData\" />
     <Folder Include="wwwroot\Media\OrganizationDetailAssets\" />
   </ItemGroup>
 

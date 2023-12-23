@@ -26,6 +26,7 @@ public class AccountService : IAccountService
     {
         var user = await _userRepository.SelectAll()
                 .Where(a => a.Phone == loginDto.PhoneNumber)
+                .Include(a => a.Role)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 

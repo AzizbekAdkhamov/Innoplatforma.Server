@@ -1,6 +1,5 @@
 ﻿using Innoplatforma.Server.Service.DTOs.Logins;
 using Innoplatforma.Server.Service.Interfaces.Accounts;
-using Innoplatforma.Server.Service.Services.Commons;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Innoplatforma.Server.Api.Controllers.Commons;
@@ -9,7 +8,7 @@ public class AuthController : BaseController
 {
     private readonly IAccountService accountService;
 
-    public AuthController(IAccountService accountService, AuthService authService)
+    public AuthController(IAccountService accountService)
     {
         this.accountService = accountService;
     }
