@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Innoplatforma.Server.Data.Migrations
 {
     [DbContext(typeof(InnoPlatformDbContext))]
-    [Migration("20231223123918_ThirdMigration")]
-    partial class ThirdMigration
+    [Migration("20231223132328_initialMigrationscr")]
+    partial class initialMigrationscr
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
