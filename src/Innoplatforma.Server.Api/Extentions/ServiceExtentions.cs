@@ -71,6 +71,7 @@ public static class ServiceExtentions
         // Users
         services.AddScoped<IUsersService, UserService>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ISmsService, SmsService>();
 
         // Accounts
         services.AddScoped<IAuthService, AuthService>();
