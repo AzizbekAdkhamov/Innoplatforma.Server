@@ -5,6 +5,7 @@ using Innoplatforma.Server.Service.DTOs.Users.PersonalDatas;
 using Innoplatforma.Server.Service.Exceptions;
 using Innoplatforma.Server.Service.Helpers;
 using Innoplatforma.Server.Service.Interfaces.Users.PersonalDatas;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatforma.Server.Service.Services.Users.PersonalDatas;
@@ -25,50 +26,31 @@ public class PersonalDataService : IPersonalDataService
 
     public async Task<PersonalDataForResultDto> CreateAsync(PersonalDataForCreationDto dto)
     {
-        throw new NotImplementedException();
-        //var personalData = await _personalDataRepository
-        //    .SelectAll()
-        //    .Where(p => p.PassportNumber == dto.PassportNumber
-        //            && p.PassportSeria.ToLower() == dto.PassportSeria.ToLower())
-        //    .AsNoTracking()
-        //    .FirstOrDefaultAsync();
+        var personalData = await _personalDataRepository
+            .SelectAll()
+            .Where(p => p.PassportNumber == dto.PassportNumber
+                    && p.PassportSeria.ToLower() == dto.PassportSeria.ToLower())
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
-        //if (personalData is not null)
-        //    throw new InnoplatformException(409, "Personal Data is already exist.");
+        if (personalData is not null)
+            throw new InnoplatformException(409, "Personal Data is already exist.");
 
+        var passportFrontFilePath = FileUploadHelper.UploadFile("PersonalData", dto.PassportAssetFront).Result;
+        var passportBackFilePath = FileUploadHelper.UploadFile("PersonalData", dto.PassportAssetsBack).Result;
 
-
-        //var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(dto.PassportAssetFrontId.FileName);
-        //var rootPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, "Media", "PersonalData", fileName);
-        //using (var stream = new FileStream(rootPath, FileMode.Create))
-        //{
-        //    await dto.PassportAssetFrontId.CopyToAsync(stream);
-        //    await stream.FlushAsync();
-        //    stream.Close();
-        //}
-        //var mappedAsset = new PersonalDataAssets()
-        //{
-        //    Name = fileName,
-        //    Extension = dto.PassportAssetFrontId.ContentType,
-        //    Type = dto.PassportAssetFrontId.ContentType.ToString(),
-        //    Path = rootPath,
-        //    Size = dto.PassportAssetFrontId.Length
-        //};
-
-        //var PassportAssetFrontResult = _personalDataAssetsRepository.InsertAsync(mappedAsset);
-
-        //var mapped = _mapper.Map<PersonalData>(dto);
-
-        //var createdPersonalData = await _personalDataRepository.InsertAsync(mapped);
+        var mapped = _mapper.Map<PersonalData>(dto);
+        mapped.PassportFrontPhotoPath = passportFrontFilePath;
+        mapped.PassportBackPhotoPath = passportBackFilePath;
+        DateTime convertPassportEndDate = new DateTime(dto.PassportEndDate.Year, dto.PassportEndDate.Month, dto.PassportEndDate.Day);
+        mapped.PassportEndDate = convertPassportEndDate;
+        DateTime convertBithDay = new DateTime(dto.BirthDate.Year, dto.BirthDate.Month, dto.BirthDate.Day);
+        mapped.BirthDate = convertBithDay;
 
 
+        var createdPersonalData = await _personalDataRepository.InsertAsync(mapped);
 
-
-
-
-
-
-        //return _mapper.Map<PersonalDataForResultDto>(createdPersonalData);
+        return _mapper.Map<PersonalDataForResultDto>(createdPersonalData);
     }
 
     public Task<PersonalDataForResultDto> ModifyAsync(long id, PersonalDataForUpdateDto dto)
