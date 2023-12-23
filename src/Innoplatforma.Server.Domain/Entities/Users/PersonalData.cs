@@ -1,9 +1,9 @@
-﻿using Innoplatforma.Server.Domain.Enums;
-using Innoplatforma.Server.Domain.Entities.Assets;
+﻿using Innoplatforma.Server.Domain.Commons;
+using Innoplatforma.Server.Domain.Enums;
 
 namespace Innoplatforma.Server.Domain.Entities.Users;
 
-public class PersonalData : Asset
+public class PersonalData : Auditable<long>
 {
     public long UserId { get; set; }
     public User User { get; set; }

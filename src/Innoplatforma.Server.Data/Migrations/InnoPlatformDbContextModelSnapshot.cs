@@ -30,13 +30,14 @@ namespace Innoplatforma.Server.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("AssetId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -61,8 +62,6 @@ namespace Innoplatforma.Server.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssetId");
 
                     b.HasIndex("UserId");
 
@@ -99,120 +98,6 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Investments");
-                });
-
-            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Assets.ApplicationAsset", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Extension")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("Size")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationAssets");
-                });
-
-            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Assets.OrganizationDetailAsset", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Extension")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("Size")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OrganizationDetailAssets");
-                });
-
-            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Assets.PersonalDataAssets", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Extension")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("Size")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PersonalDataAssets");
                 });
 
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Auth.Permission", b =>
@@ -376,9 +261,6 @@ namespace Innoplatforma.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("AssetId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -387,6 +269,10 @@ namespace Innoplatforma.Server.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -406,8 +292,6 @@ namespace Innoplatforma.Server.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssetId");
 
                     b.ToTable("OrganizationDetails");
                 });
@@ -474,22 +358,16 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Extension")
+                    b.Property<string>("PassportBackPhotoPath")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("PassportAssetFrontId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PassportAssetsBackId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("PassportEndDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PassportFrontPhotoPath")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<long>("PassportNumber")
                         .HasColumnType("bigint");
@@ -498,25 +376,8 @@ namespace Innoplatforma.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("PersonalDataAssetBacktIdId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PersonalDataAssetFrontIdId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Size")
-                        .HasColumnType("bigint");
-
                     b.Property<int>("Status")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -525,10 +386,6 @@ namespace Innoplatforma.Server.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonalDataAssetBacktIdId");
-
-                    b.HasIndex("PersonalDataAssetFrontIdId");
 
                     b.HasIndex("UserId");
 
@@ -616,19 +473,11 @@ namespace Innoplatforma.Server.Data.Migrations
 
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Applications.Application", b =>
                 {
-                    b.HasOne("Innoplatforma.Server.Domain.Entities.Assets.ApplicationAsset", "Asset")
-                        .WithMany()
-                        .HasForeignKey("AssetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Innoplatforma.Server.Domain.Entities.Users.User", "User")
                         .WithMany("Applications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Asset");
 
                     b.Navigation("User");
                 });
@@ -709,40 +558,13 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.Navigation("Section");
                 });
 
-            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.OrganizationDetail", b =>
-                {
-                    b.HasOne("Innoplatforma.Server.Domain.Entities.Assets.OrganizationDetailAsset", "Asset")
-                        .WithMany()
-                        .HasForeignKey("AssetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Asset");
-                });
-
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Users.PersonalData", b =>
                 {
-                    b.HasOne("Innoplatforma.Server.Domain.Entities.Assets.PersonalDataAssets", "PersonalDataAssetBacktId")
-                        .WithMany()
-                        .HasForeignKey("PersonalDataAssetBacktIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Innoplatforma.Server.Domain.Entities.Assets.PersonalDataAssets", "PersonalDataAssetFrontId")
-                        .WithMany()
-                        .HasForeignKey("PersonalDataAssetFrontIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Innoplatforma.Server.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("PersonalDataAssetBacktId");
-
-                    b.Navigation("PersonalDataAssetFrontId");
 
                     b.Navigation("User");
                 });

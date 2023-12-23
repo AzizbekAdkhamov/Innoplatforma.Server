@@ -1,5 +1,4 @@
 ﻿using Innoplatforma.Server.Domain.Commons;
-using Innoplatforma.Server.Domain.Entities.Assets;
 
 namespace Innoplatforma.Server.Domain.Entities.Organizations;
 

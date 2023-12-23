@@ -40,6 +40,7 @@ namespace Innoplatforma.Server.Data.Migrations
                     ShortPhone = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     OrganizationLink = table.Column<string>(type: "text", nullable: false),
+                    FilePath = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -70,7 +71,6 @@ namespace Innoplatforma.Server.Data.Migrations
                     Id = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -111,32 +111,6 @@ namespace Innoplatforma.Server.Data.Migrations
                     table.PrimaryKey("PK_Links", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Links_OrganizationDetails_OrganizationDetailId",
-                        column: x => x.OrganizationDetailId,
-                        principalTable: "OrganizationDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrganizationDetailAssets",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OrganizationDetailId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
-                    Path = table.Column<string>(type: "text", nullable: false),
-                    Size = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganizationDetailAssets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrganizationDetailAssets_OrganizationDetails_OrganizationDe~",
                         column: x => x.OrganizationDetailId,
                         principalTable: "OrganizationDetails",
                         principalColumn: "Id",
@@ -248,6 +222,7 @@ namespace Innoplatforma.Server.Data.Migrations
                     MotivationLetter = table.Column<string>(type: "text", nullable: false),
                     countInvestors = table.Column<int>(type: "integer", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
+                    FilePath = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -274,45 +249,16 @@ namespace Innoplatforma.Server.Data.Migrations
                     PassportEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
+                    PassportFrontPhotoPath = table.Column<string>(type: "text", nullable: false),
+                    PassportBackPhotoPath = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
-                    Path = table.Column<string>(type: "text", nullable: false),
-                    Size = table.Column<long>(type: "bigint", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersonalData", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PersonalData_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserAssets",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
-                    Path = table.Column<string>(type: "text", nullable: false),
-                    Size = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserAssets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserAssets_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -337,32 +283,6 @@ namespace Innoplatforma.Server.Data.Migrations
                         name: "FK_UserProfessions_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ApplicationAssets",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ApplicationId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
-                    Path = table.Column<string>(type: "text", nullable: false),
-                    Size = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationAssets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ApplicationAssets_Applications_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "Applications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -396,33 +316,6 @@ namespace Innoplatforma.Server.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PersonalDataAssets",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PersonalDataId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonalDataAssets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PersonalDataAssets_PersonalData_PersonalDataId",
-                        column: x => x.PersonalDataId,
-                        principalTable: "PersonalData",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ApplicationAssets_ApplicationId",
-                table: "ApplicationAssets",
-                column: "ApplicationId",
-                unique: true);
-
             migrationBuilder.CreateIndex(
                 name: "IX_Applications_UserId",
                 table: "Applications",
@@ -442,12 +335,6 @@ namespace Innoplatforma.Server.Data.Migrations
                 name: "IX_Links_OrganizationDetailId",
                 table: "Links",
                 column: "OrganizationDetailId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrganizationDetailAssets_OrganizationDetailId",
-                table: "OrganizationDetailAssets",
-                column: "OrganizationDetailId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Organizations_LocationId",
@@ -470,11 +357,6 @@ namespace Innoplatforma.Server.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonalDataAssets_PersonalDataId",
-                table: "PersonalDataAssets",
-                column: "PersonalDataId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RolePermessions_PremessionId",
                 table: "RolePermessions",
                 column: "PremessionId");
@@ -483,11 +365,6 @@ namespace Innoplatforma.Server.Data.Migrations
                 name: "IX_RolePermessions_RoleId",
                 table: "RolePermessions",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserAssets_UserId",
-                table: "UserAssets",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserProfessions_UserId",
@@ -504,28 +381,19 @@ namespace Innoplatforma.Server.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ApplicationAssets");
-
-            migrationBuilder.DropTable(
                 name: "Investments");
 
             migrationBuilder.DropTable(
                 name: "Links");
 
             migrationBuilder.DropTable(
-                name: "OrganizationDetailAssets");
-
-            migrationBuilder.DropTable(
                 name: "Organizations");
 
             migrationBuilder.DropTable(
-                name: "PersonalDataAssets");
+                name: "PersonalData");
 
             migrationBuilder.DropTable(
                 name: "RolePermessions");
-
-            migrationBuilder.DropTable(
-                name: "UserAssets");
 
             migrationBuilder.DropTable(
                 name: "UserProfessions");
@@ -541,9 +409,6 @@ namespace Innoplatforma.Server.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sections");
-
-            migrationBuilder.DropTable(
-                name: "PersonalData");
 
             migrationBuilder.DropTable(
                 name: "Permissions");

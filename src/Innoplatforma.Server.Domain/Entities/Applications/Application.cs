@@ -1,5 +1,4 @@
 ﻿using Innoplatforma.Server.Domain.Commons;
-using Innoplatforma.Server.Domain.Entities.Assets;
 using Innoplatforma.Server.Domain.Entities.Users;
 using Innoplatforma.Server.Domain.Enums;
 
