@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Innoplatforma.Server.Service.DTOs.Users.UserProffesions;
 
-namespace Innoplatforma.Server.Service.DTOs.Users.UserProffesions
+public class UserProfessionForUpdateDto
 {
-    internal class UserProfessionForUpdateDto
-    {
-    }
+    public long UserId { get; set; }
+    public string Name { get; set; }
 }
