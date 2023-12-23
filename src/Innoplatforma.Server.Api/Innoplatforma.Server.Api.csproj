@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Innoplatforma.Server.Service\Innoplatforma.Server.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Media\OrganizationDetailAssets\" />
+  </ItemGroup>
+
 </Project>

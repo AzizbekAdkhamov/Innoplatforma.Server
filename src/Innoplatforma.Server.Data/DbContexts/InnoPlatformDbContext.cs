@@ -16,7 +16,11 @@ public class InnoPlatformDbContext : DbContext
     {
     }
 
-    
+    public DbSet<Organization> Organizations { get; set; }
+    public DbSet<OrganizationDetail> OrganizationDetails { get; set; }
+    public DbSet<OrganizationDetailAsset> OrganizationDetailAssets { get; set; }
+
+    public DbSet<User> Users { get; set; }
 
     
 }

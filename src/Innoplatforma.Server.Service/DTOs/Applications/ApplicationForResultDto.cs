@@ -11,5 +11,6 @@ public class ApplicationForResultDto
     public string Description { get; set; }
     public string MotivationLetter { get; set; }
     public Status Status { get; set; }
-    public ApplicationAsset Asset { get; set; }
+    public long AssetId { get; set; }
+    public string AssetPath { get; set; }
 }

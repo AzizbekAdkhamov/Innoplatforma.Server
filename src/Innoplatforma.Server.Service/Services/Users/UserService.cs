@@ -2,6 +2,7 @@
 using Innoplatforma.Server.Data.IRepositories.Users;
 using Innoplatforma.Server.Domain.Entities.Users;
 using Innoplatforma.Server.Service.Commons.Extentions;
+using Innoplatforma.Server.Service.Commons.Helpers;
 using Innoplatforma.Server.Service.Configurations;
 using Innoplatforma.Server.Service.DTOs.Users;
 using Innoplatforma.Server.Service.Exceptions;
@@ -21,6 +22,28 @@ public class UserService : IUsersService
         _userRepository = userRepository;
     }
 
+    public async Task<bool> ChangePasswordAsync(long id, UserForChangePasswordDto dto)
+    {
+        var user = await _userRepository
+            .SelectAll()
+            .Where(u => u.Id == id)
+            .FirstOrDefaultAsync();
+
+        if (user is null || !PasswordHelper.Verify(dto.OldPassword, user.Salt, user.Password))
+            throw new InnoplatformException(404, "User or Password is incorrect");
+
+        else if (dto.NewPassword != dto.ConfirmPassword)
+            throw new InnoplatformException(400, "New password and confir password aren't equal");
+
+        var hash = PasswordHelper.Hash(dto.ConfirmPassword);
+        user.Salt = hash.Salt;
+        user.Password = hash.Hash;
+        var updated = _userRepository.UpdateAsync(user);
+
+        return true;
+    }
+
+
     public async Task<UserForResultDto> CreateAsync(UserForCreationDto dto)
     {
         var user = await _userRepository.SelectAll()
@@ -38,6 +61,30 @@ public class UserService : IUsersService
 
         return _mapper.Map<UserForResultDto>(createdUser);
     }
+
+    public async Task<bool> ForgetPasswordAsync(string PhoneNumber, string NewPassword, string ConfirmPassword)
+    {
+        var user = await _userRepository.SelectAll()
+            .Where(u => u.Phone.ToString() == PhoneNumber)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (user is null)
+            throw new InnoplatformException(404, "User not found");
+
+        if (NewPassword != ConfirmPassword)
+            throw new InnoplatformException(400, "New password and confirm password aren't equal");
+
+        var hash = PasswordHelper.Hash(NewPassword);
+
+        user.Salt = hash.Salt;
+        user.Password = hash.Hash;
+
+        var updated = _userRepository.UpdateAsync(user);
+
+        return true;
+    }
+
 
     public async Task<UserForResultDto> ModifyAsync(long id, UserForUpdateDto dto)
     {

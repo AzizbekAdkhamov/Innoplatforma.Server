@@ -4,6 +4,8 @@ using Innoplatforma.Server.Api.Extentions;
 using Innoplatforma.Server.Data.DbContexts;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
+using Innoplatforma.Server.Service.Helpers;
+using Innoplatforma.Server.Api.Middlewares;
 
 namespace Innoplatforma.Server.Api;
 
@@ -66,6 +68,9 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        WebHostEnviromentHelper.WebRootPath = Path.GetFullPath("wwwroot");
+
+        app.UseMiddleware<ExceptionHandlerMiddleWare>();
         app.UseRateLimiter();
 
         app.MapControllers();
