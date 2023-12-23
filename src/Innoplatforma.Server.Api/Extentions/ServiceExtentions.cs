@@ -1,12 +1,20 @@
 ﻿using Innoplatforma.Server.Data.IRepositories;
 using Innoplatforma.Server.Data.IRepositories.Auth;
+using Innoplatforma.Server.Data.IRepositories.Organizations;
+using Innoplatforma.Server.Data.IRepositories.Organizations.Links;
+using Innoplatforma.Server.Data.IRepositories.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Data.IRepositories.Sections;
 using Innoplatforma.Server.Data.Repositories;
 using Innoplatforma.Server.Data.Repositories.Auth;
+using Innoplatforma.Server.Data.Repositories.Organizations;
+using Innoplatforma.Server.Data.Repositories.Organizations.Links;
+using Innoplatforma.Server.Data.Repositories.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Data.Repositories.Sections;
 using Innoplatforma.Server.Service.Interfaces.Auth;
+using Innoplatforma.Server.Service.Interfaces.Organizations.Links;
 using Innoplatforma.Server.Service.Interfaces.Sections;
 using Innoplatforma.Server.Service.Services.Auth;
+using Innoplatforma.Server.Service.Services.Organizations.Links;
 using Innoplatforma.Server.Service.Services.Sections;
 
 namespace Innoplatforma.Server.Api.Extentions;
@@ -25,5 +33,15 @@ public static class ServiceExtentions
         //Sections
         services.AddScoped<ISectionRepository, SectionRepository>();
         services.AddScoped<ISectionService, SectionService>();
+
+        // Organizations
+        services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+        
+        // Organization Details
+        services.AddScoped<IOrganizationDetailRepository, OrganizationDetailRepository>();
+
+        // Links
+        services.AddScoped<ILinkService, LinkService>();
+        services.AddScoped<ILinkRepository, LinkRepository>();
     }
 }
