@@ -1,7 +1,6 @@
-﻿using Innoplatforma.Server.Domain.Commons;
+using Innoplatforma.Server.Domain.Commons;
 using Innoplatforma.Server.Domain.Entities.Applications;
 using Innoplatforma.Server.Domain.Entities.Auth;
-using Innoplatforma.Server.Domain.Enums;
 
 namespace Innoplatforma.Server.Domain.Entities.Users;
 
@@ -16,8 +15,6 @@ public class User : Auditable<long>
     public short RoleId { get; set; }
     public Role Role { get; set; }
     public string Salt { get; set; }
-
-    public long? PersonalDataId {  get; set; }
 
     public List<Application> Applications { get; set; }
 }
