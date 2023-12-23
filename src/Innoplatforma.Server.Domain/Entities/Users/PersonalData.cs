@@ -4,7 +4,7 @@ using Innoplatforma.Server.Domain.Enums;
 
 namespace Innoplatforma.Server.Domain.Entities.Users;
 
-public class PersonalData : Auditable<long>
+public class PersonalData : Asset
 {
     public long UserId { get; set; }
     public User User { get; set; }
