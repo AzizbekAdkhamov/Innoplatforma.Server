@@ -15,32 +15,32 @@ public class InnoPlatformDbContext : DbContext
         : base(options)
     {
     }
-    DbSet<Investment> Investments { get; set; }
-    DbSet<Application> Applications { get; set; }
-    DbSet<ApplicationAsset> ApplicationAssets { get; set; }
+    public DbSet<Investment> Investments { get; set; }
+    public DbSet<Application> Applications { get; set; }
+    public DbSet<ApplicationAsset> ApplicationAssets { get; set; }
 
-    DbSet<Organization> Organizations { get; set; }
-    DbSet<OrganizationDetail> OrganizationDetails { get; set; }
-    DbSet<OrganizationDetailAsset> OrganizationDetailAssets { get; set; }
+    public DbSet<Organization> Organizations { get; set; }
+    public DbSet<OrganizationDetail> OrganizationDetails { get; set; }
+    public DbSet<OrganizationDetailAsset> OrganizationDetailAssets { get; set; }
 
-    DbSet<User> Users { get; set; }
-    DbSet<UserAsset> UserAssets { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<UserAsset> UserAssets { get; set; }
 
-    DbSet<Permission> Permissions { get; set;}
+    public DbSet<Permission> Permissions { get; set;}
 
-    DbSet<Role> Roles { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
-    DbSet<RolePermession> RolePermessions { get; set; }
+    public DbSet<RolePermession> RolePermessions { get; set; }
 
-    DbSet<Link> Links { get; set; } 
+    public DbSet<Link> Links { get; set; } 
 
-    DbSet<Location> Locations { get; set; }
+    public DbSet<Location> Locations { get; set; }
 
-    DbSet<Section> Sections {  get; set; } 
+    public DbSet<Section> Sections {  get; set; } 
 
-    DbSet<PersonalData> PersonalData { get; set; }
-    DbSet<UserProfession> UserProfessions { get;set; }
-    DbSet<PersonalDataAssets> PersonalDataAssets { get; set; }
+    public DbSet<PersonalData> PersonalData { get; set; }
+    public DbSet<UserProfession> UserProfessions { get;set; }
+    public DbSet<PersonalDataAssets> PersonalDataAssets { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         Task.Run(() =>

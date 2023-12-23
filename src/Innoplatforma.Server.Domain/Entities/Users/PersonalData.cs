@@ -1,6 +1,6 @@
-﻿using Innoplatforma.Server.Domain.Commons;
+﻿using Innoplatforma.Server.Domain.Enums;
+using Innoplatforma.Server.Domain.Commons;
 using Innoplatforma.Server.Domain.Entities.Assets;
-using Innoplatforma.Server.Domain.Enums;
 
 namespace Innoplatforma.Server.Domain.Entities.Users;
 
