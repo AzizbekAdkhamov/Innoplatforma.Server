@@ -1,4 +1,5 @@
 ﻿using Innoplatforma.Server.Data.IRepositories;
+using Innoplatforma.Server.Data.IRepositories.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Data.IRepositories.Auth;
 using Innoplatforma.Server.Data.IRepositories.Organizations;
 using Innoplatforma.Server.Data.IRepositories.Organizations.Links;
@@ -7,6 +8,7 @@ using Innoplatforma.Server.Data.IRepositories.References;
 using Innoplatforma.Server.Data.IRepositories.Sections;
 using Innoplatforma.Server.Data.IRepositories.Users;
 using Innoplatforma.Server.Data.Repositories;
+using Innoplatforma.Server.Data.Repositories.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Data.Repositories.Auth;
 using Innoplatforma.Server.Data.Repositories.Organizations;
 using Innoplatforma.Server.Data.Repositories.Organizations.Links;
