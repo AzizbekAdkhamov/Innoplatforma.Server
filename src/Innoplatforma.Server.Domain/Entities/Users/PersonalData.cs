@@ -1,5 +1,4 @@
 ﻿using Innoplatforma.Server.Domain.Enums;
-using Innoplatforma.Server.Domain.Commons;
 using Innoplatforma.Server.Domain.Entities.Assets;
 
 namespace Innoplatforma.Server.Domain.Entities.Users;
@@ -13,5 +12,7 @@ public class PersonalData : Asset
     public DateTime PassportEndDate { get; set; }
     public DateTime BirthDate { get; set; }
     public Status Status { get; set; }
-    public IEnumerable<PersonalDataAssets> Assets { get; set; }
+
+    public ICollection<PersonalDataAssets> Assets { get; set; }
+
 }

@@ -1,4 +1,5 @@
 ﻿using Innoplatforma.Server.Domain.Entities.Assets;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Innoplatforma.Server.Service.DTOs.Applications;
@@ -10,5 +11,5 @@ public class ApplicationForUpdateDto
     public string Title { get; set; }
     public string Description { get; set; }
     public string MotivationLetter { get; set; }
-    public ApplicationAsset Asset { get; set; }
+    public IFormFile Asset { get; set; }
 }

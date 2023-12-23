@@ -5,5 +5,4 @@ namespace Innoplatforma.Server.Domain.Entities.Auth;
 public class Role : Auditable<short>
 {
     public string Name { get; set; }
-    public string Description { get; set; }
 }

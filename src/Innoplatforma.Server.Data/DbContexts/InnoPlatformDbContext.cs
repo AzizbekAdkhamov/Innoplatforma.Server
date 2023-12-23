@@ -24,7 +24,6 @@ public class InnoPlatformDbContext : DbContext
     public DbSet<OrganizationDetailAsset> OrganizationDetailAssets { get; set; }
 
     public DbSet<User> Users { get; set; }
-    public DbSet<UserAsset> UserAssets { get; set; }
 
     public DbSet<Permission> Permissions { get; set;}
 

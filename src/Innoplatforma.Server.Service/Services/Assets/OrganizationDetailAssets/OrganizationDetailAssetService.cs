@@ -35,21 +35,14 @@ public class OrganizationDetailAssetService : IOrganizationDetailAssetService
         {
             Directory.CreateDirectory(ImagesFolderPath);
         }
-        var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(dto.formFile.FileName);
+
+        var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(dto.FormFile.FileName);
 
         var fullPath = Path.Combine(wwwRootPath, fileName);
 
-        var asset = await _organizationDetailAssetRepository.SelectAll()
-            .Where(e => e.Name == fileName)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (asset is not null)
-            throw new InnoplatformException(404, "OrganizationDetailAsset is already exist");
-
         using (var stream = File.OpenWrite(fullPath))
         {
-            await dto.formFile.CopyToAsync(stream);
+            await dto.FormFile.CopyToAsync(stream);
             await stream.FlushAsync();
             stream.Close();
         }
@@ -60,7 +53,7 @@ public class OrganizationDetailAssetService : IOrganizationDetailAssetService
         mapped.Path = resultImage;
         mapped.Name = fileName;
         mapped.Extension = Path.GetExtension(fileName);
-        mapped.Type = dto.formFile.ContentType;
+        mapped.Type = dto.FormFile.ContentType;
         mapped.CreatedAt = DateTime.UtcNow;
 
         var result = await _organizationDetailAssetRepository.InsertAsync(mapped);

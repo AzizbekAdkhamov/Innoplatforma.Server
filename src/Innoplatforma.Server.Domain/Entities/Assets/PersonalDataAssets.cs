@@ -5,6 +5,8 @@ namespace Innoplatforma.Server.Domain.Entities.Assets;
 
 public class PersonalDataAssets : Auditable<long>
 {
-    public long PersonalDataId {  get; set; } 
-    public PersonalData PersonalData { get; set; }
+    public long PersonalDataId {  get; set; }
+    public long AssetId { get; set; }
+    public Asset Asset { get; set; }
+
 }
