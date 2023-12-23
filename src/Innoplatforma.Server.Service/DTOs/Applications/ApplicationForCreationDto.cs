@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Innoplatforma.Server.Service.DTOs.Applications;
 
-public class AplicationForCreationDto
+public class ApplicationForCreationDto
 {
     public long UserId { get; set; }
 

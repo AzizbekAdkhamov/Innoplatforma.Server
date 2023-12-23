@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using Innoplatforma.Server.Data.IRepositories.Auth;
-using Innoplatforma.Server.Domain.Entities.Auth;
-using Innoplatforma.Server.Service.Commons.Extentions;
-using Innoplatforma.Server.Service.Configurations;
-using Innoplatforma.Server.Service.Dtos.Auth.Roles;
-using Innoplatforma.Server.Service.DTOs.Auth.RolePermissions;
-using Innoplatforma.Server.Service.Exceptions;
-using Innoplatforma.Server.Service.Interfaces.Auth;
 using Microsoft.EntityFrameworkCore;
+using Innoplatforma.Server.Service.Exceptions;
+using Innoplatforma.Server.Domain.Entities.Auth;
+using Innoplatforma.Server.Service.Configurations;
+using Innoplatforma.Server.Data.IRepositories.Auth;
+using Innoplatforma.Server.Service.Interfaces.Auth;
+using Innoplatforma.Server.Service.Commons.Extentions;
+using Innoplatforma.Server.Service.DTOs.Auth.RolePermissions;
 
 namespace Innoplatforma.Server.Service.Services.Auth;
 

@@ -1,4 +1,5 @@
 ﻿using Innoplatforma.Server.Domain.Commons;
+using Innoplatforma.Server.Domain.Entities.References;
 using Innoplatforma.Server.Domain.Entities.Sections;
 
 namespace Innoplatforma.Server.Domain.Entities.Organizations;
