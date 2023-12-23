@@ -21,11 +21,15 @@ public class Program
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
+
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddAutoMapper(typeof(MappingProfile));
 
         builder.Services.AddCustomService();
+
+        // JWT service
+        builder.Services.AddSwaggerService();
 
         builder.Services.AddRateLimiter(rateLimiterOptions =>
         {
@@ -45,6 +49,8 @@ public class Program
                     "Too many request. Please try again later.", cancellationToken:  token);
             };
         });
+
+        builder.Services.AddMemoryCache();
 
         var app = builder.Build();
 

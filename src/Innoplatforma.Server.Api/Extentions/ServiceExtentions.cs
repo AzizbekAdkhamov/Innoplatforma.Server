@@ -16,6 +16,7 @@ using Innoplatforma.Server.Data.Repositories.Sections;
 using Innoplatforma.Server.Data.Repositories.Users;
 using Innoplatforma.Server.Service.Interfaces.Accounts;
 using Innoplatforma.Server.Service.Interfaces.Auth;
+using Innoplatforma.Server.Service.Interfaces.Commons;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Links;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Organization;
 using Innoplatforma.Server.Service.Interfaces.References;
@@ -23,11 +24,14 @@ using Innoplatforma.Server.Service.Interfaces.Sections;
 using Innoplatforma.Server.Service.Interfaces.Users;
 using Innoplatforma.Server.Service.Services.Accounts;
 using Innoplatforma.Server.Service.Services.Auth;
+using Innoplatforma.Server.Service.Services.Commons;
 using Innoplatforma.Server.Service.Services.Organizations;
 using Innoplatforma.Server.Service.Services.Organizations.Links;
 using Innoplatforma.Server.Service.Services.References;
 using Innoplatforma.Server.Service.Services.Sections;
 using Innoplatforma.Server.Service.Services.Users;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 
 namespace Innoplatforma.Server.Api.Extentions;
@@ -69,5 +73,38 @@ public static class ServiceExtentions
         // Accounts
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IAccountService, AccountService>();
+    }
+
+    public static void AddSwaggerService(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Innoplatforma.Server.Api", Version = "v1" });
+            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Description =
+                    "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] { }
+                }
+            });
+        });
     }
 }
