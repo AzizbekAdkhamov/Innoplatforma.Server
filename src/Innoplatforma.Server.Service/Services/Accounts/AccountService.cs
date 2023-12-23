@@ -6,20 +6,21 @@ using Innoplatforma.Server.Domain.Entities.Users;
 using Innoplatforma.Server.Service.Commons.Helpers;
 using Innoplatforma.Server.Service.Interfaces.Accounts;
 using Innoplatforma.Server.Service.Services.Commons;
+using Innoplatforma.Server.Service.Interfaces.Commons;
 
 
 namespace Innoplatforma.Server.Service.Services.Accounts;
 
 public class AccountService : IAccountService
 {
-    private readonly AuthService _authService;
+    private readonly IAuthService _authService;
     private readonly IRepository<User, long> _userRepository;
     public AccountService(
-        AuthService authService,
+        IAuthService authService,
         IRepository<User, long> userRepository)
     {
-        this._authService = authService;
-        this._userRepository = userRepository;
+        _authService = authService;
+        _userRepository = userRepository;
     }
     public async Task<string> LoginAsync(LoginDto loginDto)
     {
@@ -27,6 +28,7 @@ public class AccountService : IAccountService
                 .Where(a => a.Phone == loginDto.PhoneNumber)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+
         if (user is null)
             throw new InnoplatformException(404, "Telefor raqam yoki parol xato kiritildi!");
 

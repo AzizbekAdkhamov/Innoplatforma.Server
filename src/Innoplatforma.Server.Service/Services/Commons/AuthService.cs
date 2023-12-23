@@ -10,7 +10,7 @@ namespace Innoplatforma.Server.Service.Services.Commons;
 
 public class AuthService : IAuthService
 {
-    private readonly IConfigurationSection configuration;
+    private readonly IConfiguration configuration;
     public AuthService(IConfiguration configuration)
     {
         this.configuration = configuration.GetSection("Jwt");

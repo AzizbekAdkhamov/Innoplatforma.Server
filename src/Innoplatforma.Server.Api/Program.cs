@@ -28,6 +28,8 @@ public class Program
 
         builder.Services.AddCustomService();
 
+        builder.Services.AddMemoryCache();
+
         // JWT service
         builder.Services.AddSwaggerService();
 
@@ -50,7 +52,7 @@ public class Program
             };
         });
 
-        builder.Services.AddMemoryCache();
+        
 
         var app = builder.Build();
 
