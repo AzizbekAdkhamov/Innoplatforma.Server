@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Innoplatforma.Server.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ThirdMigration : Migration
+    public partial class initialMigrationscr : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
