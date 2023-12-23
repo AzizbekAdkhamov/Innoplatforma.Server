@@ -11,7 +11,7 @@ public class OrganizationDetail : Auditable<long>
     public string ShortPhone { get; set; }
     public string Description { get; set; }
     public string OrganizationLink { get; set; }
-    public long AssetId { get; set; }
+    public long? AssetId { get; set; }
     public OrganizationDetailAsset Asset { get; set; }
 
     public IEnumerable<Link> Links { get; set; }

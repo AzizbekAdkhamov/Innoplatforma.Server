@@ -22,6 +22,7 @@ using Innoplatforma.Server.Service.Interfaces.Auth;
 using Innoplatforma.Server.Service.Interfaces.Commons;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Links;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Organization;
+using Innoplatforma.Server.Service.Interfaces.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Service.Interfaces.References;
 using Innoplatforma.Server.Service.Interfaces.Sections;
 using Innoplatforma.Server.Service.Interfaces.Users;
@@ -31,6 +32,7 @@ using Innoplatforma.Server.Service.Services.Auth;
 using Innoplatforma.Server.Service.Services.Commons;
 using Innoplatforma.Server.Service.Services.Organizations;
 using Innoplatforma.Server.Service.Services.Organizations.Links;
+using Innoplatforma.Server.Service.Services.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Service.Services.References;
 using Innoplatforma.Server.Service.Services.Sections;
 using Innoplatforma.Server.Service.Services.Users;
@@ -88,6 +90,10 @@ public static class ServiceExtentions
         // OrganizationDetailAssets
         services.AddScoped<IOrganizationDetailAssetRepository, OrganizationDetailAssetRepository>();
         services.AddScoped<IOrganizationDetailAssetService, OrganizationDetailAssetService>();
+
+        // Organization Detail
+        services.AddScoped<IOrganizationDetailRepository, OrganizationDetailRepository>();
+        services.AddScoped<IOrganizationDetailService, OrganizationDetailService>();
 
     }
 

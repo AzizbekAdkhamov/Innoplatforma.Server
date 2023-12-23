@@ -26,4 +26,5 @@ public class OrganizationDetailAssetsController : BaseController
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveAsync([FromRoute] long id)
         => Ok(await _organizationDetailAssetService.RemoveAsync(id));
+
 }
