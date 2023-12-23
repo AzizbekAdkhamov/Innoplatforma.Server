@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Innoplatforma.Server.Data.Migrations
 {
     [DbContext(typeof(InnoPlatformDbContext))]
-    [Migration("20231222150511_initialMigration")]
-    partial class initialMigration
+    [Migration("20231223105105_usermigration")]
+    partial class usermigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,9 +87,14 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Investments");
                 });
@@ -282,11 +287,11 @@ namespace Innoplatforma.Server.Data.Migrations
 
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Auth.RolePermession", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -341,32 +346,7 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.ToTable("Links");
                 });
 
-            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.Location", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.Link", b =>
+            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.Organization", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -388,16 +368,10 @@ namespace Innoplatforma.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("OrganizationCardId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("OrganizationDetailId")
                         .HasColumnType("bigint");
 
                     b.Property<short>("SectionId")
-                        .HasColumnType("smallint");
-
-                    b.Property<short>("SectorId")
                         .HasColumnType("smallint");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -457,6 +431,31 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.ToTable("OrganizationDetails");
                 });
 
+            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.References.Location", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Sections.Section", b =>
                 {
                     b.Property<short>("Id")
@@ -494,6 +493,14 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("PassportEndDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -504,8 +511,19 @@ namespace Innoplatforma.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("Status")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -515,8 +533,7 @@ namespace Innoplatforma.Server.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("PersonalData");
                 });
@@ -551,15 +568,16 @@ namespace Innoplatforma.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("PersonakDataId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<short>("RoleId")
                         .HasColumnType("smallint");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -581,10 +599,6 @@ namespace Innoplatforma.Server.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -622,7 +636,15 @@ namespace Innoplatforma.Server.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Innoplatforma.Server.Domain.Entities.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Application");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Assets.ApplicationAsset", b =>
@@ -699,9 +721,9 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.Navigation("OrganizationDetail");
                 });
 
-            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.Link", b =>
+            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.Organization", b =>
                 {
-                    b.HasOne("Innoplatforma.Server.Domain.Entities.Organizations.Location", "Location")
+                    b.HasOne("Innoplatforma.Server.Domain.Entities.References.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -729,8 +751,8 @@ namespace Innoplatforma.Server.Data.Migrations
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Users.PersonalData", b =>
                 {
                     b.HasOne("Innoplatforma.Server.Domain.Entities.Users.User", "User")
-                        .WithOne("PersonalDatas")
-                        .HasForeignKey("Innoplatforma.Server.Domain.Entities.Users.PersonalData", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -786,9 +808,6 @@ namespace Innoplatforma.Server.Data.Migrations
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Users.User", b =>
                 {
                     b.Navigation("Applications");
-
-                    b.Navigation("PersonalDatas")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
