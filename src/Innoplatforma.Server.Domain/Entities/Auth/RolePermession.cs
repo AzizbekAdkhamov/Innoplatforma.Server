@@ -2,7 +2,7 @@
 
 namespace Innoplatforma.Server.Domain.Entities.Auth;
 
-public class RolePermession : Auditable<int>
+public class RolePermession : Auditable<long>
 {
     public short RoleId { get; set; }
     public Role Role { get; set; }
