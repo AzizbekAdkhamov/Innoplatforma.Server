@@ -4,6 +4,7 @@ using Innoplatforma.Server.Api.Extentions;
 using Innoplatforma.Server.Data.DbContexts;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
+using Innoplatforma.Server.Service.Helpers;
 
 namespace Innoplatforma.Server.Api;
 
@@ -56,6 +57,12 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+
+        if(app.Services.GetRequiredService<IWebHostEnvironment>() != null)
+        {
+            var service = app.Services.GetRequiredService<IWebHostEnvironment>();
+            WebHostEnviromentHelper.WebRootPath = service.WebRootPath;
+        }
 
         app.UseRateLimiter();
 

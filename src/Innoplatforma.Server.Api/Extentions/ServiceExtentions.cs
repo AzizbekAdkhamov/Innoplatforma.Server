@@ -1,4 +1,5 @@
 ﻿using Innoplatforma.Server.Data.IRepositories;
+using Innoplatforma.Server.Data.IRepositories.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Data.IRepositories.Auth;
 using Innoplatforma.Server.Data.IRepositories.Organizations;
 using Innoplatforma.Server.Data.IRepositories.Organizations.Links;
@@ -6,17 +7,20 @@ using Innoplatforma.Server.Data.IRepositories.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Data.IRepositories.References;
 using Innoplatforma.Server.Data.IRepositories.Sections;
 using Innoplatforma.Server.Data.Repositories;
+using Innoplatforma.Server.Data.Repositories.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Data.Repositories.Auth;
 using Innoplatforma.Server.Data.Repositories.Organizations;
 using Innoplatforma.Server.Data.Repositories.Organizations.Links;
 using Innoplatforma.Server.Data.Repositories.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Data.Repositories.References;
 using Innoplatforma.Server.Data.Repositories.Sections;
+using Innoplatforma.Server.Service.Interfaces.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Service.Interfaces.Auth;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Links;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Organization;
 using Innoplatforma.Server.Service.Interfaces.References;
 using Innoplatforma.Server.Service.Interfaces.Sections;
+using Innoplatforma.Server.Service.Services.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Service.Services.Auth;
 using Innoplatforma.Server.Service.Services.Organizations;
 using Innoplatforma.Server.Service.Services.Organizations.Links;
@@ -54,5 +58,9 @@ public static class ServiceExtentions
         // Locations
         services.AddScoped<ILocationRepository, LocationRepository>();
         services.AddScoped<IlocationService, LocationService>();
+
+        // Organization Detail Assets
+        services.AddScoped<IOrganizationDetailAssetRepository, OrganizationDetailAssetRepository>();
+        services.AddScoped<IOrganizationDetailAssetService, OrganizationDetailAssetService>();
     }
 }
