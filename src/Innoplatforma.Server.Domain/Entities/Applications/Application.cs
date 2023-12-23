@@ -15,6 +15,5 @@ public class Application : Auditable<long>
     public string MotivationLetter { get; set; }
     public int countInvestors { get; set; } = 0;
     public Status Status { get; set; }
-    public long AssetId { get; set; }
-    public ApplicationAsset Asset { get; set; }
+    public string FilePath { get; set; }
 }

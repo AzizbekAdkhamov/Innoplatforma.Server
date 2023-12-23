@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Organizations\OrganizationDetails\" />
     <Folder Include="wwwroot\Media\PersonalData\" />
-    <Folder Include="wwwroot\Media\OrganizationDetailAssets\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Innoplatforma.Server.Data.IRepositories.Assets;
 using Innoplatforma.Server.Data.IRepositories.Assets.OrganizationDetailAssets;
 using Innoplatforma.Server.Data.IRepositories.Users;
+using Innoplatforma.Server.Data.Repositories.Assets;
 using Innoplatforma.Server.Domain.Entities.Assets;
 using Innoplatforma.Server.Domain.Entities.Users;
 using Innoplatforma.Server.Service.DTOs.Users.PersonalDatas;
@@ -17,60 +19,63 @@ public class PersonalDataService : IPersonalDataService
 {
     private readonly IMapper _mapper;
     private readonly IPersonalDataRepository _personalDataRepository;
-    private readonly IOrganizationDetailAssetRepository _organizationDetailAssetRepository;
+    private readonly IPersonalDataAssetsRepository _personalDataAssetsRepository;
 
     public PersonalDataService(
         IMapper mapper,
         IPersonalDataRepository personalDataRepository,
-        IOrganizationDetailAssetRepository organizationDetailAssetRepository)
+        IPersonalDataAssetsRepository personalDataAssetsRepository)
     {
         _mapper = mapper;
         _personalDataRepository = personalDataRepository;
-        _organizationDetailAssetRepository = organizationDetailAssetRepository;
+        _personalDataAssetsRepository = personalDataAssetsRepository;
     }
 
     public async Task<PersonalDataForResultDto> CreateAsync(PersonalDataForCreationDto dto)
     {
-        throw new NotImplementedException();
-        //var personalData = await _personalDataRepository
-        //    .SelectAll()
-        //    .Where(p => p.PassportNumber == dto.PassportNumber
-        //            && p.PassportSeria.ToLower() == dto.PassportSeria.ToLower())
-        //    .AsNoTracking()
-        //    .FirstOrDefaultAsync();
+        var personalData = await _personalDataRepository
+            .SelectAll()
+            .Where(p => p.PassportNumber == dto.PassportNumber
+                    && p.PassportSeria.ToLower() == dto.PassportSeria.ToLower())
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
-        //if (personalData is not null)
-        //    throw new InnoplatformException(409, "Personal Data is already exist.");
+        if (personalData is not null)
+            throw new InnoplatformException(409, "Personal Data is already exist.");
 
-        //var mapped = _mapper.Map<PersonalData>(dto);
+        
 
-        //var createdPersonalData = await _personalDataRepository.InsertAsync(mapped);
+        var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(dto.PassportAssetFrontId.FileName);
+        var rootPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, "Media", "PersonalData", fileName);
+        using (var stream = new FileStream(rootPath, FileMode.Create))
+        {
+            await dto.PassportAssetFrontId.CopyToAsync(stream);
+            await stream.FlushAsync();
+            stream.Close();
+        }
+        var mappedAsset = new PersonalDataAssets()
+        {
+            Name = fileName,
+            Extension = dto.PassportAssetFrontId.ContentType,
+            Type = dto.PassportAssetFrontId.ContentType.ToString(),
+            Path = rootPath,
+            Size = dto.PassportAssetFrontId.Length
+        };
 
-        //foreach (var asset in dto.Images)
-        //{
+        var PassportAssetFrontResult =  _personalDataAssetsRepository.InsertAsync(mappedAsset);
 
-        //    var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(asset.FileName);
-        //    var rootPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, "Media", "PersonalData", fileName);
-        //    using (var stream = new FileStream(rootPath, FileMode.Create))
-        //    {
-        //        await asset.CopyToAsync(stream);
-        //        await stream.FlushAsync();
-        //        stream.Close();
-        //    }
-        //    var mappedAsset = new PersonalDataAssets()
-        //    {
-        //        Name = fileName,
-        //        Extension = asset.ContentType,
-        //        Type = asset.ContentType.ToString(),
-        //        Path = rootPath,
-        //        Size = asset.Length
-        //    };
-        //    mapped.Assets.Add(mappedAsset);
-        //}
+        var mapped = _mapper.Map<PersonalData>(dto);
+
+        var createdPersonalData = await _personalDataRepository.InsertAsync(mapped);
 
 
 
-        //return _mapper.Map<PersonalDataForResultDto>(createdPersonalData);
+
+
+
+
+
+        return _mapper.Map<PersonalDataForResultDto>(createdPersonalData);
     }
 
     public Task<PersonalDataForResultDto> ModifyAsync(long id, PersonalDataForUpdateDto dto)

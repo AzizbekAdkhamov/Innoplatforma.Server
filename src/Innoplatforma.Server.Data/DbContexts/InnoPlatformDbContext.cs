@@ -1,5 +1,4 @@
 ﻿using Innoplatforma.Server.Domain.Entities.Applications;
-using Innoplatforma.Server.Domain.Entities.Assets;
 using Innoplatforma.Server.Domain.Entities.Auth;
 using Innoplatforma.Server.Domain.Entities.Organizations;
 using Innoplatforma.Server.Domain.Entities.References;
@@ -17,11 +16,9 @@ public class InnoPlatformDbContext : DbContext
     }
     public DbSet<Investment> Investments { get; set; }
     public DbSet<Application> Applications { get; set; }
-    public DbSet<ApplicationAsset> ApplicationAssets { get; set; }
 
     public DbSet<Organization> Organizations { get; set; }
     public DbSet<OrganizationDetail> OrganizationDetails { get; set; }
-    public DbSet<OrganizationDetailAsset> OrganizationDetailAssets { get; set; }
 
     public DbSet<User> Users { get; set; }
 
@@ -39,7 +36,6 @@ public class InnoPlatformDbContext : DbContext
 
     public DbSet<PersonalData> PersonalData { get; set; }
     public DbSet<UserProfession> UserProfessions { get;set; }
-    public DbSet<PersonalDataAssets> PersonalDataAssets { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         Task.Run(() =>

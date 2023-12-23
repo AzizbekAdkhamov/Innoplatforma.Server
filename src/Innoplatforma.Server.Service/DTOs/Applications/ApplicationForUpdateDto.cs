@@ -1,5 +1,4 @@
-﻿using Innoplatforma.Server.Domain.Entities.Assets;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Innoplatforma.Server.Service.DTOs.Applications;

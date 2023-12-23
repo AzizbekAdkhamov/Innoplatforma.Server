@@ -1,6 +1,4 @@
-﻿using Innoplatforma.Server.Domain.Entities.Organizations;
-using Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDetailAssets;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDetails;
 

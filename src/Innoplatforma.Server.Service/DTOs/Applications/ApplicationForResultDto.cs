@@ -1,5 +1,4 @@
-﻿using Innoplatforma.Server.Domain.Entities.Assets;
-using Innoplatforma.Server.Domain.Enums;
+﻿using Innoplatforma.Server.Domain.Enums;
 
 namespace Innoplatforma.Server.Service.DTOs.Applications;
 
@@ -11,6 +10,5 @@ public class ApplicationForResultDto
     public string Description { get; set; }
     public string MotivationLetter { get; set; }
     public Status Status { get; set; }
-    public long AssetId { get; set; }
-    public string AssetPath { get; set; }
+    public string FilePath { get; set; }
 }
