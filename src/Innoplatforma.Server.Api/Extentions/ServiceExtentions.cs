@@ -80,6 +80,10 @@ public static class ServiceExtentions
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IEmailService, EmailService>();
+        
+       // Role
+        services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddScoped<IRoleService, RoleService>();    
 
         // OrganizationDetailAssets
         services.AddScoped<IOrganizationDetailAssetRepository, OrganizationDetailAssetRepository>();

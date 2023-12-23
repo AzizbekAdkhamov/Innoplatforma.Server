@@ -2,7 +2,6 @@
 
 public class UserForUpdateDto
 {
-    public string Solt { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
     public short RoleId { get; set; }
