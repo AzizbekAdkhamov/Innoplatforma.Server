@@ -1,6 +1,5 @@
 ﻿using Innoplatforma.Server.Service.Configurations;
 using Innoplatforma.Server.Service.Dtos.Auth.Roles;
-using Innoplatforma.Server.Service.DTOs.Auth.Permissions;
 
 namespace Innoplatforma.Server.Service.Interfaces.Auth;
 

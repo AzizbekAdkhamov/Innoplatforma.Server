@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Innoplatforma.Server.Domain.Entities.Auth;
+using Innoplatforma.Server.Domain.Entities.References;
 using Innoplatforma.Server.Service.Dtos.Auth.Roles;
 using Innoplatforma.Server.Service.DTOs.Auth.Permissions;
 using Innoplatforma.Server.Service.DTOs.Auth.RolePermissions;
+using Innoplatforma.Server.Service.DTOs.References.Locations;
 
 namespace Innoplatforma.Server.Service.Mappers;
 
@@ -27,5 +29,11 @@ public class MappingProfile : Profile
         CreateMap<RolePermession, RolePermessionForResultDto>().ReverseMap();
         CreateMap<RolePermession, RolePermissionForUpdateDto>().ReverseMap();
         CreateMap<RolePermession, RolePermissionForCreationDto>().ReverseMap();
+
+        //Location
+
+        CreateMap<Location, LocationForCreation>().ReverseMap();
+        CreateMap<Location, LocationForResultDto>().ReverseMap();
+        CreateMap<Location, LocationForUpdateDto>().ReverseMap();
     }
 }
