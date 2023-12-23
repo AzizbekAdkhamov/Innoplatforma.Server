@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Innoplatforma.Server.Service.DTOs.Auth.RolePermissions;
 
-namespace Innoplatforma.Server.Service.DTOs.Auth.RolePermissions
+public class RolePermessionForResultDto
 {
-    internal class RolePermessionForResultDto
-    {
-    }
+    public long Id { get; set; }
+    public short RoleId { get; set; }
+    public int PermessionId { get; set; }
 }
