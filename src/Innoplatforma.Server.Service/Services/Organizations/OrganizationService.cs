@@ -21,7 +21,11 @@ public class OrganizationService : IOrganizationService
     private readonly ILocationRepository _locationRepository;
     private readonly ISectionRepository _sectionRepository;
 
-    public OrganizationService(IMapper mapper, IOrganizationRepository organizationRepository, IOrganizationDetailRepository organizationDetailRepository, ISectionRepository sectionRepository, ILocationRepository locationRepository)
+    public OrganizationService(IMapper mapper, 
+        IOrganizationRepository organizationRepository, 
+        IOrganizationDetailRepository organizationDetailRepository, 
+        ISectionRepository sectionRepository, 
+        ILocationRepository locationRepository)
     {
         _mapper = mapper;
         _organizationRepository = organizationRepository;

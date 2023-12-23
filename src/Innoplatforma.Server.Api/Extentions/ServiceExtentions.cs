@@ -42,33 +42,32 @@ public static class ServiceExtentions
     {
         // Generic Repository
         services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
-
-        // Permissions
+        services.AddScoped<ISectionRepository, SectionRepository>();
         services.AddScoped<IPermissionRepository, PermissionRepository>();
-        services.AddScoped<IPermissionService, PermissionService>();
+        services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+        services.AddScoped<IOrganizationDetailRepository, OrganizationDetailRepository>();
+        services.AddScoped<ILinkRepository, LinkRepository>();
+        services.AddScoped<ILocationRepository, LocationRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+
+
+
+
 
         //Sections
-        services.AddScoped<ISectionRepository, SectionRepository>();
         services.AddScoped<ISectionService, SectionService>();
-
-        // Organizations
-        services.AddScoped<IOrganizationRepository, OrganizationRepository>();
-        services.AddScoped<IOrganizationService, OrganizationService>();
-        
-        // Link Details
-        services.AddScoped<IOrganizationDetailRepository, OrganizationDetailRepository>();
 
         // Links
         services.AddScoped<ILinkService, LinkService>();
-        services.AddScoped<ILinkRepository, LinkRepository>();
 
         // Locations
-        services.AddScoped<ILocationRepository, LocationRepository>();
         services.AddScoped<IlocationService, LocationService>();
 
         // Users
         services.AddScoped<IUsersService, UserService>();
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IAuthService, AuthService>();
 
         // Accounts
         services.AddScoped<IAuthService, AuthService>();
@@ -109,5 +108,9 @@ public static class ServiceExtentions
                 }
             });
         });
+        services.AddScoped<IAccountService, AccountService>();
+
+        // Organizations
+        services.AddScoped<IOrganizationService, OrganizationService>();
     }
 }

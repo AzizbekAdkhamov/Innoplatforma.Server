@@ -13,17 +13,13 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddDbContext<InnoPlatformDbContext>(options =>
-            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
 
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddMemoryCache();
         builder.Services.AddAutoMapper(typeof(MappingProfile));
 
         builder.Services.AddCustomService();
@@ -32,6 +28,11 @@ public class Program
 
         // JWT service
         builder.Services.AddSwaggerService();
+
+        // Add services to the container.
+        builder.Services.AddDbContext<InnoPlatformDbContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
         builder.Services.AddRateLimiter(rateLimiterOptions =>
         {
