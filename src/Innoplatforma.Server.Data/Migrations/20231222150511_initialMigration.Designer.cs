@@ -366,7 +366,7 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.Organization", b =>
+            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.Link", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -699,7 +699,7 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.Navigation("OrganizationDetail");
                 });
 
-            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.Organization", b =>
+            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Organizations.Link", b =>
                 {
                     b.HasOne("Innoplatforma.Server.Domain.Entities.Organizations.Location", "Location")
                         .WithMany()

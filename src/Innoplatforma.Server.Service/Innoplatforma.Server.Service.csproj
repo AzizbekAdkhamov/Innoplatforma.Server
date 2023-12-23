@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTOs\Organizations\Locations\**" />
+    <EmbeddedResource Remove="DTOs\Organizations\Locations\**" />
+    <None Remove="DTOs\Organizations\Locations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
 	<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
 	<PackageReference Include="MailKit" Version="4.3.0" />
@@ -17,10 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Innoplatforma.Server.Data\Innoplatforma.Server.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DTOs\Organizations\Locations\" />
   </ItemGroup>
 
 </Project>
