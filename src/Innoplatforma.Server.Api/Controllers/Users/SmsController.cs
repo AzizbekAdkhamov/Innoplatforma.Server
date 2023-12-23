@@ -8,24 +8,14 @@ namespace Innoplatforma.Server.Api.Controllers.Users;
 
 public class SmsController : BaseController
 {
-    private readonly ISmsService smsService;
+    private readonly ISmsService _smsService;
 
     public SmsController(ISmsService smsService)
     {
-        this.smsService = smsService;
+        _smsService = smsService;
     }
 
     [HttpPost]
     public async Task<IActionResult> SendMessageAsync(Message message)
-        => Ok(await this.smsService.SendAsync(message));
-
-
-    [HttpPost("send-message-by-telegram/groupId/url/text")]
-    public async Task<IActionResult> PostAsync(long groupId, string url, string text)
-    {
-        // Decode the URL parameter
-        url = Uri.UnescapeDataString(url);
-
-        return Ok(await smsService.SendMessageByTelegramAsync(groupId, url, text));
-    }
+        => Ok(await _smsService.SendAsync(message));
 }

@@ -42,31 +42,30 @@ public class SmsService : ISmsService
 
     public async Task<bool> SendAsync(Message message)
     {
-        var users = this.userRepository.SelectAll();
+        //var users = this.userRepository.SelectAll();
         
 
-        if (users is null)
-            throw new InnoplatformException(404, "Users is not found");
+        //if (users is null)
+        //    throw new InnoplatformException(404, "Users is not found");
 
 
         var token = await GenerateTokenAsync();
-        foreach (var user in users)
-        {
-            using var client = new HttpClient();
-            using var request = new HttpRequestMessage(HttpMethod.Post, "https://notify.eskiz.uz/api/message/sms/send");
 
-            // Add the Authorization header with the Bearer token
-            request.Headers.Add("Authorization", $"Bearer {token}");
+        using var client = new HttpClient();
+        using var request = new HttpRequestMessage(HttpMethod.Post, "https://notify.eskiz.uz/api/message/sms/send");
 
-            using var content = new MultipartFormDataContent();
-            content.Add(new StringContent($"{user.Phone}"), "mobile_phone");
-            content.Add(new StringContent($"{message.Subject} \n {message.Body}"), "message");
-            content.Add(new StringContent($"{configuration["SmsConfig:from"]}"), "from");
-            request.Content = content;
-            await client.SendAsync(request);
+        // Add the Authorization header with the Bearer token
+        request.Headers.Add("Authorization", $"Bearer {token}");
+
+        using var content = new MultipartFormDataContent();
+        content.Add(new StringContent($"{message.To}"), "mobile_phone");
+        content.Add(new StringContent($"{message.Subject} \n {message.Body}"), "message");
+        content.Add(new StringContent($"{configuration["SmsConfig:from"]}"), "from");
+        request.Content = content;
+        await client.SendAsync(request);
 
 
-        }
+
 
         return true;
     }

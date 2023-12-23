@@ -67,11 +67,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        if(app.Services.GetRequiredService<IWebHostEnvironment>() != null)
-        {
-            var service = app.Services.GetRequiredService<IWebHostEnvironment>();
-            WebHostEnviromentHelper.WebRootPath = service.WebRootPath;
-        }
+        WebHostEnviromentHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
         app.UseMiddleware<ExceptionHandlerMiddleWare>();
         app.UseRateLimiter();
