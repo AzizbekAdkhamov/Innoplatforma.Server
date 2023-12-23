@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Innoplatforma.Server.Data.DbContexts;
+using Innoplatforma.Server.Data.IRepositories.Users;
+using Innoplatforma.Server.Data.Repositories;
+using Innoplatforma.Server.Domain.Entities.Users;
 
-namespace Innoplatforma.Server.Data.Repositories.Users
+public class UserProfessionRepository : Repository<UserProfession, long>, IUserProfessionRepository
 {
-    internal class UserProfessionRepository
+    public UserProfessionRepository(InnoPlatformDbContext dbContext) :
+       base(dbContext)
     {
     }
 }

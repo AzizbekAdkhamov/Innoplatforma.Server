@@ -1,5 +1,4 @@
-﻿
-using Innoplatforma.Server.Domain.Commons;
+﻿using Innoplatforma.Server.Domain.Commons;
 using Innoplatforma.Server.Domain.Entities.Applications;
 using Innoplatforma.Server.Domain.Entities.Auth;
 using Innoplatforma.Server.Domain.Enums;

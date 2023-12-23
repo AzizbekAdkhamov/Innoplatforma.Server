@@ -6,6 +6,7 @@ namespace Innoplatforma.Server.Data.Repositories.Sections;
 
 public class SectionRepository : Repository<Section, short>, ISectionRepository
 {
+
     public SectionRepository(InnoPlatformDbContext dbContext) :
         base(dbContext)
     {
