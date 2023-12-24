@@ -32,8 +32,7 @@ public class PersonalDataService : IPersonalDataService
     {
         var personalData = await _personalDataRepository
             .SelectAll()
-            .Where(p => p.PassportNumber == dto.PassportNumber
-                    && p.PassportSeria.ToLower() == dto.PassportSeria.ToLower())
+            .Where(p => p.PassportNumber == dto.PassportNumber)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

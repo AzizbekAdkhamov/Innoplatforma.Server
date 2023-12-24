@@ -14,6 +14,17 @@ async def bot_start(message: types.Message):
     id = check_user.json()
     
     if check_user.status_code == 200:
+        full_request = f"{root_path}applications"
+
+        if message.from_user.id in barer_token:
+            barer_token = barer_tokens[message.from_user.id]
+
+            headers = {
+                'accept': '*/*',
+                'Authorization': barer_token,
+            }
+
+            response = requests.get(barer_token, headers=headers, verify=False)
         await message.answer(f"Salom, {message.from_user.full_name}!")
     else:
         await message.answer("Iltimos telefon raqamingizni yuboring.")
@@ -54,6 +65,7 @@ async def get_phone_num(msg : types.Message, state: FSMContext):
     response = requests.post(full_request, headers=headers, json=data, verify=False)
 
     if response.status_code == 200:
+        barer_tokens[msg.from_user.id] = response.text
         await msg.delete()
         full_request_phone = f"{root_path}Users/phone-number?phoneNumber=%2B{phone[1:]}"
         get_user_data = requests.get(full_request_phone, verify=False).json()
