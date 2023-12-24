@@ -14,6 +14,7 @@ namespace Innoplatforma.Server.Service.DTOs.Users
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
         public string Email { get; set; }
+        public long? TelegramId { get; set; }
 
         [Required(ErrorMessage = "Phone is required")]
         [PhoneNumber]
@@ -22,6 +23,5 @@ namespace Innoplatforma.Server.Service.DTOs.Users
         [Required(ErrorMessage = "Password is required")]
         [StrongPassword]
         public string Password { get; set; }
-        public short RoleId { get; set; }
     }
 }
