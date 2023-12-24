@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Innoplatforma.Server.Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Innoplatforma.Server.Shared", "src\Innoplatforma.Server.Shared\Innoplatforma.Server.Shared.csproj", "{EE41B1A5-F608-4A75-AF9A-C8E621A314AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innoplatforma.Server.TelegramBot", "src\Innoplatforma.Server.TelegramBot\Innoplatforma.Server.TelegramBot.csproj", "{BA7EBB36-2FE5-4A1D-A741-3B6BC6EA0472}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{EE41B1A5-F608-4A75-AF9A-C8E621A314AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE41B1A5-F608-4A75-AF9A-C8E621A314AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE41B1A5-F608-4A75-AF9A-C8E621A314AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA7EBB36-2FE5-4A1D-A741-3B6BC6EA0472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA7EBB36-2FE5-4A1D-A741-3B6BC6EA0472}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA7EBB36-2FE5-4A1D-A741-3B6BC6EA0472}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA7EBB36-2FE5-4A1D-A741-3B6BC6EA0472}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
