@@ -3,9 +3,11 @@ using Innoplatforma.Server.Service.Configurations;
 using Innoplatforma.Server.Service.Interfaces.Auth;
 using Innoplatforma.Server.Api.Controllers.Commons;
 using Innoplatforma.Server.Service.DTOs.Auth.Permissions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Innoplatforma.Server.Api.Controllers.Auth;
 
+[Authorize(Roles = "Admin")]
 public class PermissionsController : BaseController
 {
     private readonly IPermissionService _permissionService;

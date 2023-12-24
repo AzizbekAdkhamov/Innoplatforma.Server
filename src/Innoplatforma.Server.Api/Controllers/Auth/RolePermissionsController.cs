@@ -4,14 +4,16 @@ using Innoplatforma.Server.Service.Dtos.Auth.Roles;
 using Innoplatforma.Server.Service.DTOs.Auth.Permissions;
 using Innoplatforma.Server.Service.DTOs.Auth.RolePermissions;
 using Innoplatforma.Server.Service.Interfaces.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Innoplatforma.Server.Api.Controllers.Auth;
 
-public class RolePermessionsController : BaseController
+[Authorize(Roles = "Admin")]
+public class RolePermissionsController : BaseController
 {
     private readonly IRolePermessionService _rolePermessionService;
-    public RolePermessionsController(IRolePermessionService permissionService)
+    public RolePermissionsController(IRolePermessionService permissionService)
     {
         _rolePermessionService = permissionService;
     }

@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Innoplatforma.Server.Service.Configurations;
 using Innoplatforma.Server.Service.Dtos.Auth.Roles;
 using Innoplatforma.Server.Service.Interfaces.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Innoplatforma.Server.Api.Controllers.Roles
 {
+
+    [Authorize(Roles = "Admin")]
     public class RolesController : BaseController
     {
         private readonly IRoleService _roleService;
