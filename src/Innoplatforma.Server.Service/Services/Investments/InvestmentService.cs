@@ -54,7 +54,6 @@ public class InvestmentService : IInvestmentService
         await investmentRepository.UpdateAsync(mapped);
 
         return mapper.Map<InvestmentForResultDto>(mapped);
-
     }
 
     public async Task<bool> RemoveAsync(long id)
