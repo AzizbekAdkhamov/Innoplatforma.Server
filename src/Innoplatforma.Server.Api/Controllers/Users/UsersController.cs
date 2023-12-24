@@ -30,6 +30,11 @@ namespace Innoplatforma.Server.Api.Controllers.Users
         public async Task<IActionResult> GetByTelegramIdAsync([FromRoute] long telegramId)
             => Ok(await _usersService.RetrieveByTelegramIdAsync(telegramId));
 
+        [HttpGet("phone-number")]
+        public async Task<IActionResult> RetrievePhoneNumberAsync(string phoneNumber)
+            => Ok(await _usersService.RetrieveByPhoneNumberAsync(phoneNumber));
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveAsync([FromRoute] long id)
             => Ok(await _usersService.RemoveAsync(id));

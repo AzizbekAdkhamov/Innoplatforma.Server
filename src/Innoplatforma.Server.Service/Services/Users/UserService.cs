@@ -159,4 +159,16 @@ public class UserService : IUsersService
 
         return _mapper.Map<UserForResultDto>(user);
     }
+
+    public async Task<UserForResultDto> RetrieveByPhoneNumberAsync(string phoneNumber)
+    {
+        var user = await _userRepository.SelectAll()
+            .Where(u => u.Phone == phoneNumber)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (user is null)
+            throw new InnoplatformException(404, "User not found");
+
+        return this._mapper.Map<UserForResultDto>(user);
+    }
 }
