@@ -14,11 +14,15 @@ public class RolePermessionService : IRolePermessionService
 {
     private readonly IMapper _mapper;
     private readonly IRolePermessionRepository _rolePermessionRepository;
+    private readonly IRoleRepository _roleRepository;
+    private readonly IPermissionRepository _permissionRepository;
 
-    public RolePermessionService(IRolePermessionRepository rolePermession, IMapper mapper)
+    public RolePermessionService(IRolePermessionRepository rolePermession, IMapper mapper, IPermissionRepository permissionRepository, IRoleRepository roleRepository)
     {
         _mapper = mapper;
+        _roleRepository = roleRepository;
         _rolePermessionRepository = rolePermession;
+        _permissionRepository = permissionRepository;
     }
 
     public async Task<RolePermessionForResultDto> CreateAsync(RolePermissionForCreationDto dto)
@@ -30,6 +34,7 @@ public class RolePermessionService : IRolePermessionService
             .FirstOrDefaultAsync();
         if (rolePermession is not null)
             throw new InnoplatformException(409, "RolePermession is already exist!");
+
         var mapRolePermession = _mapper.Map<RolePermession>(dto);
         mapRolePermession.CreatedAt = DateTime.UtcNow;
 
