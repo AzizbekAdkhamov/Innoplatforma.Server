@@ -6,6 +6,9 @@ using Innoplatforma.Server.Data.DbContexts;
 using Innoplatforma.Server.Service.Mappers;
 using Innoplatforma.Server.Service.Helpers;
 using Innoplatforma.Server.Api.Middlewares;
+using Innoplatforma.Server.Api.Models;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Serilog;
 
 namespace Innoplatforma.Server.Api;
 
@@ -25,6 +28,14 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
 
         builder.Services.AddSwaggerGen();
+
+        ////Logger
+        //var logger = new LoggerConfiguration()
+        //    .ReadFrom.Configuration(builder.Configuration)
+        //    .Enrich.FromLogContext()
+        //    .CreateLogger();
+        //builder.Logging.ClearProviders();
+        //builder.Logging.AddSerilog(logger);
 
         builder.Services.AddAutoMapper(typeof(MappingProfile));
 
@@ -55,7 +66,12 @@ public class Program
             };
         });
 
-        
+        //Configure api url name
+        builder.Services.AddControllers(options =>
+        {
+            options.Conventions.Add(new RouteTokenTransformerConvention(
+                                                new ConfigurationApiUrlName()));
+        });
 
         var app = builder.Build();
 
