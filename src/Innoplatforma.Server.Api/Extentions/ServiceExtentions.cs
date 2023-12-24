@@ -113,6 +113,10 @@ public static class ServiceExtentions
         services.AddScoped<IUserProfessionRepository, UserProfessionRepository>();
         services.AddScoped<IUserProfessionService, UserProfessionService>();
 
+        // RolePermession
+        services.AddScoped<IRolePermessionRepository, RolePermesssionRepository>();
+        services.AddScoped<IRolePermessionService, RolePermessionService>();
+
         // Aplication
         services.AddScoped<IApplicationService, ApplicationService>();
 

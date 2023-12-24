@@ -7,6 +7,7 @@ using Innoplatforma.Server.Data.IRepositories.Users;
 using Innoplatforma.Server.Service.Commons.Extentions;
 using Innoplatforma.Server.Service.Interfaces.Professions;
 using Innoplatforma.Server.Service.DTOs.Users.UserProffesions;
+using Innoplatforma.Server.Domain.Entities.Auth;
 
 
 namespace Innoplatforma.Server.Service.Services.Users;
@@ -14,11 +15,18 @@ namespace Innoplatforma.Server.Service.Services.Users;
 public class UserProfessionService : IUserProfessionService
 {
     private readonly IMapper _mapper;
+    private readonly IUserRepository _userRepository;
+    private readonly IProfessionRepository _professionRepository;
     private readonly IUserProfessionRepository _userProfessionRepository;
 
-    public UserProfessionService(IMapper mapper, IUserProfessionRepository userProfessionRepository)
+    public UserProfessionService(IMapper mapper,
+        IProfessionRepository professionRepository,
+        IUserProfessionRepository userProfessionRepository,
+        IUserRepository userRepository)
     {
         _mapper = mapper;
+        _userRepository = userRepository;
+        _professionRepository = professionRepository;
         _userProfessionRepository = userProfessionRepository;
     }
 
@@ -31,6 +39,21 @@ public class UserProfessionService : IUserProfessionService
 
         if (userProfession is not null)
             throw new InnoplatformException(409, "UserProfession is already exist.");
+
+        var user = await _userRepository
+            .SelectAll()
+            .Where(r => r.Id == dto.UserId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        var profession = await _professionRepository
+            .SelectAll()
+            .Where(p => p.Id == dto.ProfessionId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (user is null || profession is null)
+            throw new InnoplatformException(404, "User or Profession is not found");
 
         var mapUserProfession = _mapper.Map<UserProfession>(dto);
         mapUserProfession.CreatedAt = DateTime.UtcNow;

@@ -32,8 +32,25 @@ public class RolePermessionService : IRolePermessionService
             .Where(rp => rp.RoleId == dto.RoleId && rp.PremessionId == dto.PermessionId)
             .AsNoTracking()
             .FirstOrDefaultAsync();
+
         if (rolePermession is not null)
             throw new InnoplatformException(409, "RolePermession is already exist!");
+
+        var role = await _roleRepository
+            .SelectAll()
+            .Where(r => r.Id == dto.RoleId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        var permession = await _permissionRepository
+            .SelectAll()
+            .Where(p => p.Id == dto.PermessionId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (permession is null || role is null)
+            throw new InnoplatformException(404, "Permession or Role is not found");
+
 
         var mapRolePermession = _mapper.Map<RolePermession>(dto);
         mapRolePermession.CreatedAt = DateTime.UtcNow;
