@@ -104,8 +104,12 @@ public static class ServiceExtentions
         services.AddScoped<IUserProfessionRepository, UserProfessionRepository>();
         services.AddScoped<IUserProfessionService, UserProfessionService>();
 
-        //Aplication
+        // Aplication
         services.AddScoped<IApplicationService, ApplicationService>();
+
+        // Location
+        services.AddScoped<ILocationRepository,LocationRepository>();
+        services.AddScoped<IlocationService ,LocationService>();
 
         
 
