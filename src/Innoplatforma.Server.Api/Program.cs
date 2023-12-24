@@ -29,13 +29,13 @@ public class Program
 
         builder.Services.AddSwaggerGen();
 
-        ////Logger
-        //var logger = new LoggerConfiguration()
-        //    .ReadFrom.Configuration(builder.Configuration)
-        //    .Enrich.FromLogContext()
-        //    .CreateLogger();
-        //builder.Logging.ClearProviders();
-        //builder.Logging.AddSerilog(logger);
+        //Logger
+        var logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration)
+            .Enrich.FromLogContext()
+            .CreateLogger();
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog(logger);
 
         builder.Services.AddAutoMapper(typeof(MappingProfile));
 
