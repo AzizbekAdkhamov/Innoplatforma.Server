@@ -26,4 +26,5 @@ public static class FileUploadHelper
 
         return assetsFolderPath;
     }
+
 }

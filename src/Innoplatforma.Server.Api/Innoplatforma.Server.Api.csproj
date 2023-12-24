@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Organizations\OrganizationDetails\" />
+    <Folder Include="wwwroot\Media\Applications\" />
     <Folder Include="wwwroot\Media\PersonalData\" />
   </ItemGroup>
 
