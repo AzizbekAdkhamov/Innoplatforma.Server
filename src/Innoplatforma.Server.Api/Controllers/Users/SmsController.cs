@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Innoplatforma.Server.Api.Controllers.Users;
 
+[Authorize(Roles = "Admin")]
 public class SmsController : BaseController
 {
     private readonly ISmsService _smsService;
