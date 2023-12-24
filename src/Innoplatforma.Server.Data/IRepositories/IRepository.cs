@@ -9,4 +9,5 @@ public interface IRepository<TEntity, TKey> where TEntity : Auditable<TKey>
     Task<TEntity> SelectByIdAsync(TKey id);
     Task<TEntity> InsertAsync(TEntity entity);
     Task<TEntity> UpdateAsync(TEntity entity);
+    Task SaveAsync();
 }

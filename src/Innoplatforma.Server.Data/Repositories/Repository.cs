@@ -49,4 +49,9 @@ public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntit
 
         return entry.Entity;
     }
+
+    public async Task SaveAsync()
+    {
+        await _dbContext.SaveChangesAsync();
+    }
 }

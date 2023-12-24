@@ -40,6 +40,12 @@ using Innoplatforma.Server.Service.Services.Organizations;
 using Innoplatforma.Server.Service.Services.Organizations.Links;
 using Innoplatforma.Server.Service.Services.Users.PersonalDatas;
 
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using Innoplatforma.Server.Service.Interfaces.Professions;
+using Innoplatforma.Server.Service.Services.Professions;
+using Innoplatforma.Server.Service.Interfaces.Organizations.OrganizationDetails;
+using Innoplatforma.Server.Service.Services.Organizations.OrganizationDetailServices;
 
 using System.Reflection;
 using Microsoft.OpenApi.Models;
@@ -67,6 +73,7 @@ public static class ServiceExtentions
         
         // Link Details
         services.AddScoped<IOrganizationDetailRepository, OrganizationDetailRepository>();
+        services.AddScoped<IOrganizationDetailService, OrganizationDetailService>();
 
         // Links
         services.AddScoped<ILinkService, LinkService>();
@@ -96,7 +103,7 @@ public static class ServiceExtentions
         services.AddScoped<IPersonalDataRepository, PersonalDataRepository>();
         services.AddScoped<IPersonalDataService, PersonalDataService>();
 
-        // Profession
+        // Professions
         services.AddScoped<IProfessionRepository, ProfessionRepository>();
         services.AddScoped<IProfessionService, ProfessionService>();
 
@@ -110,8 +117,6 @@ public static class ServiceExtentions
         // Location
         services.AddScoped<ILocationRepository,LocationRepository>();
         services.AddScoped<IlocationService ,LocationService>();
-
-        
 
     }
 
