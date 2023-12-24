@@ -7,5 +7,6 @@ public class UserProfession : Auditable<long>
     public long UserId { get; set; }
     public User User { get; set; }
 
-    public string Name { get; set; }
+    public int ProfessionId { get; set; }
+    public Profession Profession { get; set; }
 }

@@ -4,8 +4,8 @@ using Innoplatforma.Server.Service.Exceptions;
 using Innoplatforma.Server.Domain.Entities.Users;
 using Innoplatforma.Server.Service.Configurations;
 using Innoplatforma.Server.Data.IRepositories.Users;
-using Innoplatforma.Server.Service.Interfaces.Users;
 using Innoplatforma.Server.Service.Commons.Extentions;
+using Innoplatforma.Server.Service.Interfaces.Professions;
 using Innoplatforma.Server.Service.DTOs.Users.UserProffesions;
 
 
@@ -24,12 +24,12 @@ public class UserProfessionService : IUserProfessionService
 
     public async Task<UserProfessionForResultDto> CreateAsync(UserProfessionForCreationDto dto)
     {
-        var user = await _userProfessionRepository.SelectAll()
-            .Where(up => up.UserId == dto.UserId)
+        var userProfession = await _userProfessionRepository.SelectAll()
+            .Where(up => up.UserId == dto.UserId && up.ProfessionId == dto.ProfessionId)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-        if (user is not null)
+        if (userProfession is not null)
             throw new InnoplatformException(409, "UserProfession is already exist.");
 
         var mapUserProfession = _mapper.Map<UserProfession>(dto);
@@ -42,12 +42,12 @@ public class UserProfessionService : IUserProfessionService
 
     public async Task<UserProfessionForResultDto> ModifyAsync(long id, UserProfessionForUpdateDto dto)
     {
-        var user = await _userProfessionRepository.SelectByIdAsync(id);
+        var userProfession = await _userProfessionRepository.SelectByIdAsync(id);
 
-        if (user is null)
+        if (userProfession is null)
             throw new InnoplatformException(404, "UserProfession is not found");
 
-        var mappedUser = _mapper.Map(dto, user);
+        var mappedUser = _mapper.Map(dto, userProfession);
         mappedUser.UpdatedAt = DateTime.UtcNow;
 
         await _userProfessionRepository.UpdateAsync(mappedUser);
@@ -67,7 +67,8 @@ public class UserProfessionService : IUserProfessionService
 
     public async Task<IEnumerable<UserProfessionForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var user = await _userProfessionRepository.SelectAll()
+        var user = await _userProfessionRepository
+            .SelectAll()
             .AsNoTracking()
             .ToPagedList<UserProfession, long>(@params)
             .ToListAsync();
@@ -77,12 +78,12 @@ public class UserProfessionService : IUserProfessionService
 
     public async Task<UserProfessionForResultDto> RetrieveByIdAsync(long id)
     {
-        var user = await _userProfessionRepository.SelectByIdAsync(id);
+        var userProfession = await _userProfessionRepository.SelectByIdAsync(id);
 
-        if (user is null)
+        if (userProfession is null)
             throw new InnoplatformException(404, "UserProfession is not found");
 
-        return _mapper.Map<UserProfessionForResultDto>(user);
+        return _mapper.Map<UserProfessionForResultDto>(userProfession);
     }
 }
 

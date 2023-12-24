@@ -1,8 +1,7 @@
-﻿using Innoplatforma.Server.Service.DTOs.Users;
-using Innoplatforma.Server.Service.Configurations;
+﻿using Innoplatforma.Server.Service.Configurations;
 using Innoplatforma.Server.Service.DTOs.Users.UserProffesions;
 
-namespace Innoplatforma.Server.Service.Interfaces.Users;
+namespace Innoplatforma.Server.Service.Interfaces.Professions;
 
 public interface IUserProfessionService
 {

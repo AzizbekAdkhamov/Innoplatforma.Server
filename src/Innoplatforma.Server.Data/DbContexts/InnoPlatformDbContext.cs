@@ -35,7 +35,8 @@ public class InnoPlatformDbContext : DbContext
     public DbSet<Section> Sections {  get; set; } 
 
     public DbSet<PersonalData> PersonalData { get; set; }
-    public DbSet<UserProfession> UserProfessions { get;set; }
+    public DbSet<Profession> Professions { get;set; }
+    public DbSet<UserProfession> UserProfessions { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         Task.Run(() =>

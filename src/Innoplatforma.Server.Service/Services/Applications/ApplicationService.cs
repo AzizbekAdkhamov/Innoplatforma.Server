@@ -23,7 +23,7 @@ public class ApplicationService : IApplicationService
         this.applicationRepository = applicationRepository; 
     }
 
-    public async Task<ApplicationForResultDto> AddAsync(ApplicationForCreationDto dto)
+    public async Task<ApplicationForResultDto> CreateAsync(ApplicationForCreationDto dto)
     {
         var application = await applicationRepository.SelectAll()
                 .Where(a => a.Title.ToLower() == dto.Title.ToLower())
