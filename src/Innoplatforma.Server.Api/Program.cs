@@ -34,6 +34,7 @@ public class Program
 
         // JWT service
         builder.Services.AddSwaggerService();
+        builder.Services.ConfigureJwt(builder.Configuration);
 
         builder.Services.AddRateLimiter(rateLimiterOptions =>
         {

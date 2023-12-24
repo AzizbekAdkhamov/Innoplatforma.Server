@@ -51,6 +51,9 @@ using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Innoplatforma.Server.Service.Services.Investments;
 using Innoplatforma.Server.Service.Interfaces.Investments;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Innoplatforma.Server.Api.Extentions;
 
@@ -157,4 +160,28 @@ public static class ServiceExtentions
             });
         });
     }
+    public static void ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
+    {
+
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = configuration["Jwt:Issuer"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"])),
+                ValidAudience = configuration["Jwt:Audience"],
+                RequireExpirationTime = true
+            };
+        });
+    }
+
 }

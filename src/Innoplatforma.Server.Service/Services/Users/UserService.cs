@@ -35,7 +35,7 @@ public class UserService : IUsersService
         var mappedUser = _mapper.Map<User>(dto);
         mappedUser.Salt = hasherResult.Salt.ToString();
         mappedUser.Password = hasherResult.Hash;
-        mappedUser.RoleId = 1;
+        mappedUser.RoleId = 2;
 
         var createdUser = await _userRepository.InsertAsync(mappedUser);
 
