@@ -15,6 +15,8 @@ using Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDtos;
 using Innoplatforma.Server.Service.DTOs.Users.UserProffesions;
 using Innoplatforma.Server.Service.DTOs.Users.PersonalDatas;
 using Innoplatforma.Server.Service.DTOs.Professions;
+using Innoplatforma.Server.Domain.Entities.Applications;
+using Innoplatforma.Server.Service.DTOs.Applications;
 
 namespace Innoplatforma.Server.Service.Mappers;
 
@@ -43,14 +45,14 @@ public class MappingProfile : Profile
         CreateMap<Location, LocationForUpdateDto>().ReverseMap();
         
         // Sections
-        CreateMap<Section, SectionForCreationDto>().ReverseMap();
         CreateMap<Section, SectionForResultDto>().ReverseMap();
         CreateMap<Section, SectionForUpdateDto>().ReverseMap();
+        CreateMap<Section, SectionForCreationDto>().ReverseMap();
 
         // Links
-        CreateMap<Link, LinkForCreationDto>().ReverseMap();
         CreateMap<Link, LinkForUpdateDto>().ReverseMap();
         CreateMap<Link, LinkForResultDto>().ReverseMap();
+        CreateMap<Link, LinkForCreationDto>().ReverseMap();
         
         // User
         CreateMap<User, UserForResultDto>().ReverseMap();
@@ -72,11 +74,17 @@ public class MappingProfile : Profile
         CreateMap<UserProfession, UserProfessionForUpdateDto>().ReverseMap();
         CreateMap<UserProfession, UserProfessionForCreationDto>().ReverseMap();
 
-        // PersonalDataForResultDto
+        // PersonalData
         CreateMap<PersonalData, PersonalDataForResultDto>().ReverseMap();
         CreateMap<PersonalData, PersonalDataForUpdateDto> ().ReverseMap();
         CreateMap<PersonalData, PersonalDataForCreationDto> ().ReverseMap();
         CreateMap<PersonalDataForCreationDto, PersonalDataForResultDto> ().ReverseMap();
+
+        // Application
+        CreateMap<Application, ApplicationForResultDto>().ReverseMap();
+        CreateMap<Application, ApplicationForUpdateDto>().ReverseMap();
+        CreateMap<Application, ApplicationForCreationDto>().ReverseMap();
+
 
     }
 }

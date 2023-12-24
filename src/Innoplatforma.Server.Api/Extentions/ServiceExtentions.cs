@@ -22,6 +22,8 @@ using Innoplatforma.Server.Service.Interfaces.Commons;
 using Innoplatforma.Server.Service.Interfaces.Accounts;
 using Innoplatforma.Server.Service.Interfaces.Sections;
 using Innoplatforma.Server.Service.Interfaces.References;
+using Innoplatforma.Server.Service.Interfaces.Professions;
+using Innoplatforma.Server.Service.Interfaces.Applications;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Links;
 using Innoplatforma.Server.Service.Interfaces.Users.PersonalDatas;
 using Innoplatforma.Server.Service.Interfaces.Organizations.Organization;
@@ -32,15 +34,15 @@ using Innoplatforma.Server.Service.Services.Commons;
 using Innoplatforma.Server.Service.Services.Accounts;
 using Innoplatforma.Server.Service.Services.Sections;
 using Innoplatforma.Server.Service.Services.References;
+using Innoplatforma.Server.Service.Services.Professions;
+using Innoplatforma.Server.Service.Services.Applications;
 using Innoplatforma.Server.Service.Services.Organizations;
 using Innoplatforma.Server.Service.Services.Organizations.Links;
 using Innoplatforma.Server.Service.Services.Users.PersonalDatas;
 
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using Innoplatforma.Server.Service.Interfaces.Professions;
-using Innoplatforma.Server.Service.Services.Professions;
 
+using System.Reflection;
+using Microsoft.OpenApi.Models;
 
 namespace Innoplatforma.Server.Api.Extentions;
 
@@ -101,6 +103,9 @@ public static class ServiceExtentions
         // UserProfession
         services.AddScoped<IUserProfessionRepository, UserProfessionRepository>();
         services.AddScoped<IUserProfessionService, UserProfessionService>();
+
+        //Aplication
+        services.AddScoped<IApplicationService, ApplicationService>();
 
         
 
