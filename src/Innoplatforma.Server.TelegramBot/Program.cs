@@ -10,6 +10,7 @@ class Program
 {
     public static readonly TelegramBotClient botClient = new TelegramBotClient("6810292886:AAGpm1YDV4mdZg2h_YE26w-WcnC6HWl9woI");
     public static readonly CancellationTokenSource cts = new();
+    public static readonly string ApiRootPath = "";
 
     static async Task Main()
     {

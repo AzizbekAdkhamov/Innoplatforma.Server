@@ -11,6 +11,7 @@ public class User : Auditable<long>
     public string Email { get; set; }
     public string Password { get; set; }
     public string Phone { get; set; }
+    public long TelegramId { get; set; }
     public bool IsVerified { get; set; }
     public short RoleId { get; set; }
     public Role Role { get; set; }
