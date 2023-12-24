@@ -10,7 +10,8 @@ class Program
 {
     public static readonly TelegramBotClient botClient = new TelegramBotClient("6810292886:AAGpm1YDV4mdZg2h_YE26w-WcnC6HWl9woI");
     public static readonly CancellationTokenSource cts = new();
-    public static readonly string ApiRootPath = "";
+    public static readonly string apiRootPath = "https://localhost:7162/api/";
+
 
     static async Task Main()
     {
@@ -20,7 +21,7 @@ class Program
         };
 
         var pollingErrorHandler = new PollingError();
-        var echoHandler = new Controller();
+        var echoHandler = new Controller(apiRootPath, new HttpClient());
 
         try
         {

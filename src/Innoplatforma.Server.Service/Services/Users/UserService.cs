@@ -35,6 +35,7 @@ public class UserService : IUsersService
         var mappedUser = _mapper.Map<User>(dto);
         mappedUser.Salt = hasherResult.Salt.ToString();
         mappedUser.Password = hasherResult.Hash;
+        mappedUser.RoleId = 1;
 
         var createdUser = await _userRepository.InsertAsync(mappedUser);
 
@@ -85,7 +86,6 @@ public class UserService : IUsersService
         return true;
     }
 
-
     public async Task<UserForResultDto> ModifyAsync(long id, UserForUpdateDto dto)
     {
         var user = await _userRepository.SelectByIdAsync(id);
@@ -127,6 +127,35 @@ public class UserService : IUsersService
 
         if (user is null)
             throw new InnoplatformException(404, "User is not found");
+
+        return _mapper.Map<UserForResultDto>(user);
+    }
+
+    public async Task<UserForResultDto> ModifyTelegramId(long id, long telegramId)
+    {
+        var user = await _userRepository.SelectAll()
+            .Where(u => u.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (user is null)
+            throw new InnoplatformException(404, "User is not found");
+
+        user.TelegramId = telegramId;
+        user.UpdatedAt = DateTime.UtcNow;
+
+        await _userRepository.UpdateAsync(user);
+
+        return _mapper.Map<UserForResultDto>(user);
+    }
+
+    public async Task<UserForResultDto> RetrieveByTelegramIdAsync(long telegramId)
+    {
+        var user = await _userRepository.SelectAll()
+            .Where(u => u.TelegramId == telegramId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (user is null)
+            throw new InnoplatformException(404, "Telegram is not found");
 
         return _mapper.Map<UserForResultDto>(user);
     }
