@@ -28,12 +28,15 @@ public class LocationService : IlocationService
             .Where(l =>l.Latitude == dto.Latitude && l.Longitude == l.Longitude)
             .AsNoTracking()
             .FirstOrDefaultAsync();
+
         if (location is not null)
             throw new InnoplatformException(409, "Location is already exist!");
+
         var mapLocation = _mapper.Map<Location>(dto);
         mapLocation.CreatedAt = DateTime.UtcNow;
 
         var createdLocation = await _locationRepository.InsertAsync(mapLocation);
+
         return _mapper.Map<LocationForResultDto>(createdLocation);
     }
 
