@@ -49,6 +49,8 @@ using Innoplatforma.Server.Service.Services.Organizations.OrganizationDetailServ
 
 using System.Reflection;
 using Microsoft.OpenApi.Models;
+using Innoplatforma.Server.Service.Services.Investments;
+using Innoplatforma.Server.Service.Interfaces.Investments;
 
 namespace Innoplatforma.Server.Api.Extentions;
 
@@ -117,6 +119,9 @@ public static class ServiceExtentions
         // Location
         services.AddScoped<ILocationRepository,LocationRepository>();
         services.AddScoped<IlocationService ,LocationService>();
+
+        // Investment
+        services.AddScoped<IInvestmentService, InvestmentService>();
 
     }
 

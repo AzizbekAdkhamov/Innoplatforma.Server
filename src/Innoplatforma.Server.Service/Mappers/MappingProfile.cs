@@ -18,6 +18,7 @@ using Innoplatforma.Server.Service.DTOs.Professions;
 using Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Domain.Entities.Applications;
 using Innoplatforma.Server.Service.DTOs.Applications;
+using Innoplatforma.Server.Service.DTOs.Investments;
 
 namespace Innoplatforma.Server.Service.Mappers;
 
@@ -93,6 +94,10 @@ public class MappingProfile : Profile
         CreateMap<Application, ApplicationForUpdateDto>().ReverseMap();
         CreateMap<Application, ApplicationForCreationDto>().ReverseMap();
 
+        // Investment
+        CreateMap<Investment, InvestmentForResultDto>().ReverseMap();
+        CreateMap<Investment, InvestmentForUpdateDto>().ReverseMap();
+        CreateMap<Investment, InvestmentForCreateDto>().ReverseMap();
 
     }
 }
