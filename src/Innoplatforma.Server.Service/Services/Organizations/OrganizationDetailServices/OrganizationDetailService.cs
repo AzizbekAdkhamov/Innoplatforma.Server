@@ -8,6 +8,7 @@ using Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDetails;
 using Innoplatforma.Server.Service.Exceptions;
 using Innoplatforma.Server.Service.Helpers;
 using Innoplatforma.Server.Service.Interfaces.Organizations.OrganizationDetails;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatforma.Server.Service.Services.Organizations.OrganizationDetailServices;
@@ -94,41 +95,76 @@ public class OrganizationDetailService : IOrganizationDetailService
         return _mapper.Map<OrganizationDetailForResultDto>(organizationDetail);
     }
 
-    //public async Task<OrganizationDetailForResultDto> UpdateAssetAsync(long orgId, long assetId, OrganizationDetailForCreationDto dto)
-    //{
-    //    var organizationDetail = await _organizationDetailRepository.SelectAll()
-    //        .Where(org => org.Id == orgId)
-    //        .FirstOrDefaultAsync();
+    public async Task<OrganizationDetailForResultDto> UpdateLogoAsync(long Id, IFormFile formFile)
+    {
+        var organizationDetail = await _organizationDetailRepository.SelectAll()
+            .Where(org => org.Id == Id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
-    //    if (organizationDetail is null)
-    //        throw new InnoplatformException(404, "OrganizationDetail is not found");
+        if (organizationDetail is null)
+            throw new InnoplatformException(404, "OrganizationDetail is not found");
 
-    //    // Delete the existing logo file if needed
-    //    if (organizationDetail.AssetId is not 0)
-    //    {
-    //        var existingLogoPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, organizationDetail.Logo);
-    //        if (File.Exists(existingLogoPath))
-    //        {
-    //            File.Delete(existingLogoPath);
-    //        }
-    //    }
+        // Delete the existing logo file if needed
+        if (organizationDetail.FilePath is not null)
+        {
+            var existingLogoPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, organizationDetail.FilePath);
+            if (File.Exists(existingLogoPath))
+            {
+                File.Delete(existingLogoPath);
+            }
+        }
 
-    //    var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(dto.formFile.FileName);
-    //    var rootPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, "Media", "Community", "Logos", fileName);
+        var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(formFile.FileName);
+        var rootPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, "Media", "OrganizationDetails", fileName);
 
-    //    using (var stream = new FileStream(rootPath, FileMode.Create))
-    //    {
-    //        await dto.formFile.CopyToAsync(stream);
-    //        await stream.FlushAsync();
-    //        stream.Close();
-    //    }
+        using (var stream = new FileStream(rootPath, FileMode.Create))
+        {
+            await formFile.CopyToAsync(stream);
+            await stream.FlushAsync();
+            stream.Close();
+        }
 
-    //    string resultImage = Path.Combine("Media", "Community", "Logos", fileName);
+        string resultImage = Path.Combine("Media", "OrganizationDetails", fileName);
 
-    //    organizationDetail.Logo = resultImage;
-    //    var mappedCommunity = _mapper.Map<Community>(organizationDetail);
-    //    var result = await _communityRepository.UpdateAsync(mappedCommunity);
+        organizationDetail.FilePath = resultImage;
 
-    //    return _mapper.Map<CommunityForResultDto>(result);
-    //}
+        var mappedOrganizationDetail = _mapper.Map<OrganizationDetail>(organizationDetail);
+
+        var result = await _organizationDetailRepository.UpdateAsync(mappedOrganizationDetail);
+        await _organizationDetailRepository.SaveAsync();
+
+        return _mapper.Map<OrganizationDetailForResultDto>(result);
+    }
+
+    public async Task<OrganizationDetailForResultDto> RemoveLogoAsync(long Id)
+    {
+        var organizationDetail = await _organizationDetailRepository.SelectAll()
+            .Where(org => org.Id == Id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (organizationDetail is null)
+            throw new InnoplatformException(404, "OrganizationDetail is not found");
+
+        // Delete the existing logo file if needed
+        if (organizationDetail.FilePath is not null)
+        {
+            var existingLogoPath = Path.Combine(WebHostEnviromentHelper.WebRootPath, "Media", "OrganizationDetails");
+            if (File.Exists(existingLogoPath))
+            {
+                File.Delete(existingLogoPath);
+                await _organizationDetailRepository.SaveAsync();
+            }
+        }
+
+        var mappedOrganizationDetail = _mapper.Map<OrganizationDetail>(organizationDetail);
+        mappedOrganizationDetail.FilePath = null;
+
+        var result = await _organizationDetailRepository.UpdateAsync(mappedOrganizationDetail);
+        await _organizationDetailRepository.SaveAsync();
+
+        return _mapper.Map<OrganizationDetailForResultDto>(result);
+    }
+
 }

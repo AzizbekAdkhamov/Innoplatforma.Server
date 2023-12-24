@@ -23,6 +23,10 @@ public class OrganizationDetailsController : BaseController
     public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
         => Ok(await _organizationDetailService.RetrieveAllAsync(@params));
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetByIdAsync([FromRoute] long id)
+        => Ok(await _organizationDetailService.RetrieveByIdAsync(id));
+
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAsync([FromRoute] long id, [FromForm] OrganizationDetailForUpdateDto dto)
         => Ok(await _organizationDetailService.ModifyAsync(id, dto));
@@ -30,4 +34,13 @@ public class OrganizationDetailsController : BaseController
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveAsync([FromRoute] long id)
         => Ok(await _organizationDetailService.RemoveAsync(id));
+
+    [HttpPatch("{id}")] 
+    public async Task<IActionResult> UpdateLogoAsync([FromRoute(Name = "id")] long id, IFormFile formFile)
+        => Ok(await _organizationDetailService.UpdateLogoAsync(id, formFile));
+
+
+    [HttpDelete("asset-update {id}")]
+    public async Task<IActionResult> DeleteLogoAsync([FromRoute(Name = "id")] long id)
+        => Ok(await _organizationDetailService.RemoveLogoAsync(id));
 }

@@ -10,7 +10,7 @@ public class OrganizationDetail : Auditable<long>
     public string ShortPhone { get; set; }
     public string Description { get; set; }
     public string OrganizationLink { get; set; }
-    public string FilePath { get; set; }
+    public string? FilePath { get; set; }
 
     public IEnumerable<Link> Links { get; set; }
 }

@@ -67,6 +67,7 @@ public static class ServiceExtentions
         
         // Link Details
         services.AddScoped<IOrganizationDetailRepository, OrganizationDetailRepository>();
+        services.AddScoped<IOrganizationDetailService, OrganizationDetailService>();
 
         // Links
         services.AddScoped<ILinkService, LinkService>();
@@ -96,8 +97,13 @@ public static class ServiceExtentions
         services.AddScoped<IPersonalDataRepository, PersonalDataRepository>();
         services.AddScoped<IPersonalDataService, PersonalDataService>();
 
-        
+        // Professions
+        services.AddScoped<IProfessionRepository, ProfessionRepository>();
+        services.AddScoped<IProfessionService, ProfessionService>();
 
+        //User Profession
+        services.AddScoped<IUserProfessionRepository,  UserProfessionRepository>();
+        services.AddScoped<IUserProfessionService,  UserProfessionService>();
     }
 
     public static void AddSwaggerService(this IServiceCollection services)
