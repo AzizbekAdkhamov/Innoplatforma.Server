@@ -38,6 +38,8 @@ using Innoplatforma.Server.Service.Services.Users.PersonalDatas;
 
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Innoplatforma.Server.Service.Interfaces.Organizations.OrganizationDetails;
+using Innoplatforma.Server.Service.Services.Organizations.OrganizationDetailServices;
 
 
 namespace Innoplatforma.Server.Api.Extentions;
@@ -92,7 +94,9 @@ public static class ServiceExtentions
         services.AddScoped<IPersonalDataRepository, PersonalDataRepository>();
         services.AddScoped<IPersonalDataService, PersonalDataService>();
 
-        
+        // Organization Detail
+        services.AddScoped<IOrganizationDetailRepository, OrganizationDetailRepository>();
+        services.AddScoped<IOrganizationDetailService, OrganizationDetailService>();
 
     }
 

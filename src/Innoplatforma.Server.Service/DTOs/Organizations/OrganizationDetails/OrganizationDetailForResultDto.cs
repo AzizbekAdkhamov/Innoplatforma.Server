@@ -2,7 +2,7 @@
 
 namespace Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDetails;
 
-public class OrganizationForResultDto
+public class OrganizationDetailForResultDto
 {
     public long Id { get; set; }
     public string Email { get; set; }
