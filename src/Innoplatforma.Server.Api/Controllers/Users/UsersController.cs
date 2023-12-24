@@ -35,6 +35,10 @@ namespace Innoplatforma.Server.Api.Controllers.Users
             => Ok(await _usersService.RetrieveByIdAsync(id));
 
         [Authorize(Roles = "User , Admin")]
+        [HttpGet("CheckUser/{telegramId}")]
+        public async Task<IActionResult> GetByTelegramIdAsync([FromRoute] long telegramId)
+            => Ok(await _usersService.RetrieveByTelegramIdAsync(telegramId));
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveAsync([FromRoute] long id)
             => Ok(await _usersService.RemoveAsync(id));
@@ -43,5 +47,9 @@ namespace Innoplatforma.Server.Api.Controllers.Users
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync([FromRoute] long id, [FromBody] UserForUpdateDto dto)
             => Ok(await _usersService.ModifyAsync(id, dto));
+
+        [HttpPut("{id}/telegram/{telegramId}")]
+        public async Task<IActionResult> UpdateTelegramIdAsync([FromRoute] long id, [FromRoute] long telegramId)
+            => Ok(await _usersService.ModifyTelegramId(id, telegramId));
     }
 }
