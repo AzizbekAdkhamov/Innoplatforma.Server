@@ -1,11 +1,10 @@
-﻿using Innoplatforma.Server.Data.IRepositories;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Configuration;
+using Innoplatforma.Server.Data.IRepositories;
 using Innoplatforma.Server.Domain.Entities.Users;
 using Innoplatforma.Server.Service.Interfaces.Users;
 using Innoplatforma.Server.Service.Services.Accounts.Models;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using Innoplatforma.Server.Service.Exceptions;
 
 namespace Innoplatforma.Server.Service.Services.Users;
 

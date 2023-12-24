@@ -4,9 +4,9 @@ using Innoplatforma.Server.Data.IRepositories.Users;
 
 namespace Innoplatforma.Server.Data.Repositories.Users
 {
-    public class UserRepository : Repository<User, long>, IUserRepository
+    public class ProfessionRepository : Repository<Profession, int>, IProfessionRepository
     {
-        public UserRepository(InnoPlatformDbContext dbContext) :
+        public ProfessionRepository(InnoPlatformDbContext dbContext) :
             base(dbContext)
         {
         }

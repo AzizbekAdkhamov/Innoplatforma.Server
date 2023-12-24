@@ -7,7 +7,7 @@ public interface IApplicationService
 {
     Task<bool> RemoveAsync(long id);
     Task<ApplicationForResultDto> RetrieveByIdAsync(long id);
-    Task<ApplicationForResultDto> AddAsync(ApplicationForCreationDto dto);
+    Task<ApplicationForResultDto> CreateAsync(ApplicationForCreationDto dto);
     Task<ApplicationForResultDto> ModifyAsync(long id, ApplicationForUpdateDto dto);
     Task<IEnumerable<ApplicationForResultDto>> RetrieveAllAsync(PaginationParams @params);
 

@@ -14,6 +14,7 @@ using Innoplatforma.Server.Service.DTOs.Users;
 using Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDtos;
 using Innoplatforma.Server.Service.DTOs.Users.UserProffesions;
 using Innoplatforma.Server.Service.DTOs.Users.PersonalDatas;
+using Innoplatforma.Server.Service.DTOs.Professions;
 using Innoplatforma.Server.Service.DTOs.Organizations.OrganizationDetails;
 
 namespace Innoplatforma.Server.Service.Mappers;
@@ -53,26 +54,29 @@ public class MappingProfile : Profile
         CreateMap<Link, LinkForResultDto>().ReverseMap();
         
         // User
-        CreateMap<User, UserForCreationDto>().ReverseMap();
         CreateMap<User, UserForResultDto>().ReverseMap();
         CreateMap<User, UserForUpdateDto>().ReverseMap();
+        CreateMap<User, UserForCreationDto>().ReverseMap();
 
         // Organization
-        CreateMap<Organization, OrganizationForCreationDto>().ReverseMap();
         CreateMap<Organization, OrganizationForResultDto>().ReverseMap();
         CreateMap<Organization, OrganizationForUpdateDto>().ReverseMap();
+        CreateMap<Organization, OrganizationForCreationDto>().ReverseMap();
+
+        // Profession
+        CreateMap<Profession, ProfessionForResultDto>().ReverseMap();
+        CreateMap<Profession, ProfessionForUpdateDto>().ReverseMap();
+        CreateMap<Profession, ProfessionForCreatedDto>().ReverseMap();
 
         // UserProfession
-
-        CreateMap<UserProfession, UserProfessionForCreationDto>().ReverseMap();
         CreateMap<UserProfession, UserProfessionForResultDto>().ReverseMap();
         CreateMap<UserProfession, UserProfessionForUpdateDto>().ReverseMap();
+        CreateMap<UserProfession, UserProfessionForCreationDto>().ReverseMap();
 
         // PersonalDataForResultDto
-
         CreateMap<PersonalData, PersonalDataForResultDto>().ReverseMap();
-        CreateMap<PersonalData, PersonalDataForCreationDto> ().ReverseMap();
         CreateMap<PersonalData, PersonalDataForUpdateDto> ().ReverseMap();
+        CreateMap<PersonalData, PersonalDataForCreationDto> ().ReverseMap();
         CreateMap<PersonalDataForCreationDto, PersonalDataForResultDto> ().ReverseMap();
 
 

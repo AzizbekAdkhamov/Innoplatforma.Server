@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using Innoplatforma.Server.Data.IRepositories.Users;
-using Innoplatforma.Server.Domain.Entities.Users;
-using Innoplatforma.Server.Service.Commons.Extentions;
-using Innoplatforma.Server.Service.Commons.Helpers;
-using Innoplatforma.Server.Service.Configurations;
+using Microsoft.EntityFrameworkCore;
 using Innoplatforma.Server.Service.DTOs.Users;
 using Innoplatforma.Server.Service.Exceptions;
+using Innoplatforma.Server.Domain.Entities.Users;
+using Innoplatforma.Server.Service.Configurations;
+using Innoplatforma.Server.Service.Commons.Helpers;
+using Innoplatforma.Server.Data.IRepositories.Users;
 using Innoplatforma.Server.Service.Interfaces.Users;
-using Microsoft.EntityFrameworkCore;
+using Innoplatforma.Server.Service.Commons.Extentions;
 
 namespace Innoplatforma.Server.Service.Services.Users;
 
@@ -20,6 +20,25 @@ public class UserService : IUsersService
     {
         _mapper = mapper;
         _userRepository = userRepository;
+    }
+    public async Task<UserForResultDto> CreateAsync(UserForCreationDto dto)
+    {
+        var user = await _userRepository.SelectAll()
+            .Where(u => u.Email == dto.Email || u.Phone == dto.Phone)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (user is not null)
+            throw new InnoplatformException(409, "User is already exist.");
+
+        var hasherResult = PasswordHelper.Hash(dto.Password);
+        var mappedUser = _mapper.Map<User>(dto);
+        mappedUser.Salt = hasherResult.Salt.ToString();
+        mappedUser.Password = hasherResult.Hash;
+
+        var createdUser = await _userRepository.InsertAsync(mappedUser);
+
+        return _mapper.Map<UserForResultDto>(createdUser);
     }
 
     public async Task<bool> ChangePasswordAsync(long id, UserForChangePasswordDto dto)
@@ -41,26 +60,6 @@ public class UserService : IUsersService
         var updated = _userRepository.UpdateAsync(user);
 
         return true;
-    }
-
-    public async Task<UserForResultDto> CreateAsync(UserForCreationDto dto)
-    {
-        var user = await _userRepository.SelectAll()
-            .Where(u => u.Email == dto.Email || u.Phone == dto.Phone)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (user is not null)
-            throw new InnoplatformException(409, "User is already exist.");
-
-        var hasherResult = PasswordHelper.Hash(dto.Password);
-        var mappedUser = _mapper.Map<User>(dto);
-        mappedUser.Salt = hasherResult.Salt.ToString();
-        mappedUser.Password = hasherResult.Hash;
-
-        var createdUser = await _userRepository.InsertAsync(mappedUser);
-
-        return _mapper.Map<UserForResultDto>(createdUser);
     }
 
     public async Task<bool> ForgetPasswordAsync(string PhoneNumber, string NewPassword, string ConfirmPassword)

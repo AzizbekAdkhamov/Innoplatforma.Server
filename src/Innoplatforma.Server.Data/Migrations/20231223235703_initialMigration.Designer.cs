@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Innoplatforma.Server.Data.Migrations
 {
     [DbContext(typeof(InnoPlatformDbContext))]
-    [Migration("20231223213231_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20231223235703_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -395,6 +395,29 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.ToTable("PersonalData");
                 });
 
+            modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Users.Profession", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Professions");
+                });
+
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Users.User", b =>
                 {
                     b.Property<long>("Id")
@@ -457,9 +480,8 @@ namespace Innoplatforma.Server.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("ProfessionId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -468,6 +490,8 @@ namespace Innoplatforma.Server.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProfessionId");
 
                     b.HasIndex("UserId");
 
@@ -585,11 +609,19 @@ namespace Innoplatforma.Server.Data.Migrations
 
             modelBuilder.Entity("Innoplatforma.Server.Domain.Entities.Users.UserProfession", b =>
                 {
+                    b.HasOne("Innoplatforma.Server.Domain.Entities.Users.Profession", "Profession")
+                        .WithMany()
+                        .HasForeignKey("ProfessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Innoplatforma.Server.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Profession");
 
                     b.Navigation("User");
                 });
