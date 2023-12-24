@@ -38,6 +38,8 @@ using Innoplatforma.Server.Service.Services.Users.PersonalDatas;
 
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Innoplatforma.Server.Service.Interfaces.Professions;
+using Innoplatforma.Server.Service.Services.Professions;
 
 
 namespace Innoplatforma.Server.Api.Extentions;
@@ -91,6 +93,14 @@ public static class ServiceExtentions
         // PersonalData
         services.AddScoped<IPersonalDataRepository, PersonalDataRepository>();
         services.AddScoped<IPersonalDataService, PersonalDataService>();
+
+        // Profession
+        services.AddScoped<IProfessionRepository, ProfessionRepository>();
+        services.AddScoped<IProfessionService, ProfessionService>();
+
+        // UserProfession
+        services.AddScoped<IUserProfessionRepository, UserProfessionRepository>();
+        services.AddScoped<IUserProfessionService, UserProfessionService>();
 
         
 

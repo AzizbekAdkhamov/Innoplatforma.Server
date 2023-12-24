@@ -3,5 +3,6 @@
 public class UserProfessionForUpdateDto
 {
     public long UserId { get; set; }
-    public string Name { get; set; }
+    public int ProfessionId { get; set; }   
 }
+
