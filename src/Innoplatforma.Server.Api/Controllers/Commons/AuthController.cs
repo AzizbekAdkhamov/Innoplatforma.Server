@@ -1,9 +1,11 @@
 ﻿using Innoplatforma.Server.Service.DTOs.Logins;
 using Innoplatforma.Server.Service.Interfaces.Accounts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Innoplatforma.Server.Api.Controllers.Commons;
 
+[EnableRateLimiting("fixed")]
 public class AuthController : BaseController
 {
     private readonly IAccountService accountService;
